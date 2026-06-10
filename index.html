@@ -103,10 +103,11 @@
             font-size: 18px;
             font-weight: bold;
             color: #aaa;
-            height: 30px;
+            text-align: center;
+            line-height: 1.5;
         }
 
-        /* 彈出式圖鑑說明書（Modal） */
+        /* 彈出式圖鑑說明書（Modal）- 優化滾動條 */
         .modal {
             display: none; 
             position: fixed;
@@ -115,18 +116,21 @@
             width: 100%; height: 100%;
             background-color: rgba(0,0,0,0.7);
             backdrop-filter: blur(4px);
+            overflow-y: auto; /* 允許外層在極小螢幕滾動 */
         }
 
         .modal-content {
             background-color: #2c2c38;
-            margin: 10% auto;
+            margin: 5% auto;
             padding: 25px;
             border: 2px solid #ffcc00;
             border-radius: 12px;
-            width: 80%;
+            width: 85%;
             max-width: 600px;
             box-shadow: 0 5px 25px rgba(0,0,0,0.5);
             position: relative;
+            max-height: 80vh;   /* 限制最高佔螢幕的 80% */
+            overflow-y: auto;   /* 超出高度自動出現內部滾動條 */
         }
 
         .close-btn {
@@ -234,9 +238,9 @@
         let entities = [];
         let projectiles = [];
         let particles = []; 
-        let floatingTexts = []; // 新增：用於存放受傷跳字的陣列
+        let floatingTexts = []; 
         let gameActive = false;
-        let victoryTriggered = false; // 新增：標記是否進入勝利特效階段
+        let victoryTriggered = false; 
         let initDelayTimer = 0; 
 
         const CONFIG = {
@@ -381,7 +385,6 @@
             takeDamage(amount) {
                 this.hp -= amount;
 
-                // 新增：向跳字陣列塞入受傷數字（限制最低顯示 1 點傷害）
                 floatingTexts.push({
                     x: this.x + (Math.random() - 0.5) * 15,
                     y: this.y - this.radius - 20,
@@ -398,7 +401,6 @@
             }
 
             draw() {
-                // 畫主體發光
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fillStyle = this.color;
@@ -407,16 +409,13 @@
                 ctx.fill();
                 ctx.shadowBlur = 0; 
 
-                // 畫血條外框背景
                 ctx.fillStyle = '#444';
                 ctx.fillRect(this.x - 16, this.y - this.radius - 10, 32, 5);
                 
-                // 畫實際血量條
                 ctx.fillStyle = '#00ff00';
                 let hpPercent = Math.max(0, this.hp / this.maxHp);
                 ctx.fillRect(this.x - 16, this.y - this.radius - 10, 32 * hpPercent, 5);
 
-                // 新增：在血條正上方繪製明確的生命值數字（例如 250/250）
                 ctx.fillStyle = '#ffffff';
                 ctx.font = 'bold 9px sans-serif';
                 ctx.textAlign = 'center';
@@ -425,6 +424,7 @@
             }
         }
 
+        // --- 新增：核心陣型位置生成邏輯 ---
         function setupGame() {
             entities = [];
             projectiles = [];
@@ -436,33 +436,56 @@
             const mCount = Math.max(0, parseInt(document.getElementById('mageCount').value) || 0);
             const aCount = Math.max(0, parseInt(document.getElementById('assassinCount').value) || 0);
 
-            if (wCount === 0 && mCount === 0 && aCount === 0) {
+            // 篩選出真正有輸入數量的陣營
+            let activeCamps = [];
+            if (wCount > 0) activeCamps.push({ type: 'warrior', count: wCount });
+            if (mCount > 0) activeCamps.push({ type: 'mage', count: mCount });
+            if (aCount > 0) activeCamps.push({ type: 'assassin', count: aCount });
+
+            if (activeCamps.length === 0) {
                 statusDisplay.innerText = "請至少讓一隻小動物進場！";
                 gameActive = false;
                 return;
             }
 
-            spawnEntities(wCount, 'warrior');
-            spawnEntities(mCount, 'mage');
-            spawnEntities(aCount, 'assassin');
+            // 依據參與的陣營數量分配對稱防區
+            activeCamps.forEach((camp, index) => {
+                let zone = { minX: 40, maxX: canvas.width - 40, minY: 40, maxY: canvas.height - 40 };
+
+                if (activeCamps.length === 2) {
+                    // 2個陣營參戰：劃分為左右大對抗
+                    if (index === 0) { // 陣營 A 放左邊
+                        zone = { minX: 50, maxX: canvas.width * 0.3, minY: 50, maxY: canvas.height - 50 };
+                    } else {           // 陣營 B 放右邊
+                        zone = { minX: canvas.width * 0.7, maxX: canvas.width - 50, minY: 50, maxY: canvas.height - 50 };
+                    }
+                } else if (activeCamps.length === 3) {
+                    // 3個陣營參戰：劃分為上方、左下方、右下方 三國鼎立
+                    if (index === 0) {      // 陣營 A 佔領上方
+                        zone = { minX: canvas.width * 0.35, maxX: canvas.width * 0.65, minY: 50, maxY: canvas.height * 0.35 };
+                    } else if (index === 1) { // 陣營 B 佔領左下
+                        zone = { minX: 50, maxX: canvas.width * 0.35, minY: canvas.height * 0.6, maxY: canvas.height - 50 };
+                    } else {                  // 陣營 C 佔領右下
+                        zone = { minX: canvas.width * 0.65, maxX: canvas.width - 50, minY: canvas.height * 0.6, maxY: canvas.height - 50 };
+                    }
+                }
+
+                // 在指定好的安全邊界區域內隨機打散生成角色
+                for (let i = 0; i < camp.count; i++) {
+                    let x = Math.random() * (zone.maxX - zone.minX) + zone.minX;
+                    let y = Math.random() * (zone.maxY - zone.minY) + zone.minY;
+                    entities.push(new Entity(x, y, camp.type));
+                }
+            });
 
             initDelayTimer = 15; 
             gameActive = true;
-            statusDisplay.innerText = "激戰中...";
-        }
-
-        function spawnEntities(count, type) {
-            for (let i = 0; i < count; i++) {
-                let x = Math.random() * (canvas.width - 60) + 30;
-                let y = Math.random() * (canvas.height - 60) + 30;
-                entities.push(new Entity(x, y, type));
-            }
+            statusDisplay.innerText = "雙方擺開陣型，激戰開始...";
         }
 
         function gameLoop() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // 1. 處理角色
             for (let i = entities.length - 1; i >= 0; i--) {
                 let ent = entities[i];
                 if (gameActive) ent.update();
@@ -474,7 +497,6 @@
                 ent.draw();
             }
 
-            // 2. 處理遠程法術
             for (let i = projectiles.length - 1; i >= 0; i--) {
                 let p = projectiles[i];
                 if (gameActive) {
@@ -505,13 +527,11 @@
                 }
             }
 
-            // 3. 處理常規特效粒子與「新增的勝利特效煙火」
             if (victoryTriggered) {
-                // 如果進入勝利階段，每幀隨機在畫面各處噴射 3 枚彩色煙火粒子
                 for (let k = 0; k < 3; k++) {
                     particles.push({
                         x: Math.random() * canvas.width,
-                        y: Math.random() * (canvas.height * 0.7), // 主要在天空中炸開
+                        y: Math.random() * (canvas.height * 0.7), 
                         vx: (Math.random() - 0.5) * 6,
                         vy: (Math.random() - 0.5) * 6,
                         life: 45,
@@ -530,7 +550,6 @@
                     ctx.strokeStyle = pt.color; ctx.lineWidth = 2; ctx.stroke();
                     if (pt.r >= pt.maxR) particles.splice(i, 1);
                 } else if (pt.type === 'victorySpark') {
-                    // 煙火粒子物理效果：受微量重力下墜
                     pt.x += pt.vx;
                     pt.y += pt.vy;
                     pt.vy += 0.06; 
@@ -550,14 +569,13 @@
                 }
             }
 
-            // 4. 新增：處理受傷傷害飄字 (即使遊戲結束也繼續飄動完畢)
             for (let i = floatingTexts.length - 1; i >= 0; i--) {
                 let ft = floatingTexts[i];
-                ft.y -= 0.6; // 緩緩向上飄
+                ft.y -= 0.6; 
                 ft.life--;
 
-                let alpha = ft.life / ft.maxLife; // 計算透明度淡出
-                ctx.fillStyle = `rgba(255, 77, 77, ${alpha})`; // 傷害跳字統一用高亮紅
+                let alpha = ft.life / ft.maxLife; 
+                ctx.fillStyle = `rgba(255, 77, 77, ${alpha})`; 
                 ctx.font = 'bold 14px "Segoe UI", sans-serif';
                 ctx.textAlign = 'center';
                 ctx.fillText(ft.text, ft.x, ft.y);
@@ -565,7 +583,6 @@
                 if (ft.life <= 0) floatingTexts.splice(i, 1);
             }
 
-            // 5. 勝負判定
             if (gameActive) {
                 if (initDelayTimer > 0) { initDelayTimer--; } else { checkWinCondition(); }
             }
@@ -573,12 +590,14 @@
             requestAnimationFrame(gameLoop);
         }
 
+        // --- 優化：即使結束也顯示剩餘數量的勝負判定 ---
         function checkWinCondition() {
             let aliveTypes = new Set(entities.map(e => e.type));
             let counts = { warrior: 0, mage: 0, assassin: 0 };
             entities.forEach(e => counts[e.type]++);
 
-            statusDisplay.innerHTML = `
+            // 先組合出當前的人數統計字串
+            let countStatusHtml = `
                 剩餘數量 -> 
                 <span style="color:#ff4d4d">戰士: ${counts.warrior}</span> | 
                 <span style="color:#4da6ff">法師: ${counts.mage}</span> | 
@@ -588,11 +607,12 @@
             if (aliveTypes.size === 1) {
                 let winner = [...aliveTypes][0];
                 let winnerName = winner === 'warrior' ? '戰士 (紅隊)' : winner === 'mage' ? '法師 (藍隊)' : '刺客 (綠隊)';
-                statusDisplay.innerHTML = `<span style="color:${CONFIG[winner].color}; font-size:24px;">👑 比賽結束！ 恭喜 ${winnerName} 勝出！👑</span>`;
+                
+                // 保留人數，並在下方追加勝出公告
+                statusDisplay.innerHTML = `${countStatusHtml}<br><span style="color:${CONFIG[winner].color}; font-size:22px; display:block; margin-top:5px; font-weight:bold;">👑 比賽結束！ 恭喜 ${winnerName} 勝出！👑</span>`;
                 gameActive = false;
-                victoryTriggered = true; // 啟動華麗煙火特效！
+                victoryTriggered = true; 
 
-                // 瞬間噴出 80 顆初始大煙火慶祝
                 for (let m = 0; m < 80; m++) {
                     particles.push({
                         x: canvas.width / 2 + (Math.random() - 0.5) * 200,
@@ -604,14 +624,16 @@
                         type: 'victorySpark'
                     });
                 }
-
             } else if (aliveTypes.size === 0) {
-                statusDisplay.innerHTML = `<span style="color:#aaa; font-size:24px;">💀 全軍覆沒！場上沒有任何活物！💀</span>`;
+                // 全軍覆沒時同樣保留全為 0 的數據
+                statusDisplay.innerHTML = `${countStatusHtml}<br><span style="color:#aaa; font-size:22px; display:block; margin-top:5px; font-weight:bold;">💀 全軍覆沒！場上沒有任何活物！💀</span>`;
                 gameActive = false;
+            } else {
+                // 比賽還在進行，正常顯示數據
+                statusDisplay.innerHTML = countStatusHtml;
             }
         }
 
-        // --- 彈出視窗（圖鑑）控制邏輯 ---
         bookBtn.addEventListener('click', () => { guideModal.style.display = 'block'; });
         closeModal.addEventListener('click', () => { guideModal.style.display = 'none'; });
         window.addEventListener('click', (e) => { if (e.target === guideModal) guideModal.style.display = 'none'; });
