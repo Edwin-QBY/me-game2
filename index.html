@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>賽博微型鬥蛐蛐模擬器 - 全面戰爭防衛成長版</title>
+    <title>賽博微型鬥蛐蛐大賽 - 戰略據點持久拉扯成長版</title>
     <style>
         body {
             margin: 0;
@@ -183,62 +183,62 @@
 </head>
 <body>
 
-    <h1>賽博微型鬥蛐蛐大賽 - 全面戰爭防衛成長版</h1>
+    <h1>賽博微型鬥蛐蛐大賽 - 戰略據點持久拉扯成長版</h1>
 
     <div id="control-panel">
         <div class="input-group warrior">
             <label>戰士 (紅)</label>
             <div class="control-row">
-                <input type="number" id="warriorCount" value="0" min="0">
+                <input type="number" id="warriorCount" value="3" min="0">
                 <select id="warriorTeam"><option value="A" selected>隊伍 A</option><option value="B">隊伍 B</option><option value="C">隊伍 C</option><option value="D">隊伍 D</option><option value="E">隊伍 E</option></select>
             </div>
         </div>
         <div class="input-group paladin">
             <label>👑 聖騎士 (橘紅)</label>
             <div class="control-row">
-                <input type="number" id="paladinCount" value="0" min="0">
+                <input type="number" id="paladinCount" value="1" min="0">
                 <select id="paladinTeam"><option value="A" selected>隊伍 A</option><option value="B">隊伍 B</option><option value="C">隊伍 C</option><option value="D">隊伍 D</option><option value="E">隊伍 E</option></select>
             </div>
         </div>
         <div class="input-group mage">
             <label>法師 (藍)</label>
             <div class="control-row">
-                <input type="number" id="mageCount" value="0" min="0">
+                <input type="number" id="mageCount" value="3" min="0">
                 <select id="mageTeam"><option value="A">隊伍 A</option><option value="B" selected>隊伍 B</option><option value="C">隊伍 C</option><option value="D">隊伍 D</option><option value="E">隊伍 E</option></select>
             </div>
         </div>
         <div class="input-group archmage">
             <label>👑 大法師 (蘭紫)</label>
             <div class="control-row">
-                <input type="number" id="archmageCount" value="0" min="0">
+                <input type="number" id="archmageCount" value="1" min="0">
                 <select id="archmageTeam"><option value="A">隊伍 A</option><option value="B" selected>隊伍 B</option><option value="C">隊伍 C</option><option value="D">隊伍 D</option><option value="E">隊伍 E</option></select>
             </div>
         </div>
         <div class="input-group assassin">
             <label>刺客 (綠)</label>
             <div class="control-row">
-                <input type="number" id="assassinCount" value="0" min="0">
+                <input type="number" id="assassinCount" value="3" min="0">
                 <select id="assassinTeam"><option value="A">隊伍 A</option><option value="B">隊伍 B</option><option value="C" selected>隊伍 C</option><option value="D">隊伍 D</option><option value="E">隊伍 E</option></select>
             </div>
         </div>
         <div class="input-group shadowBlade">
             <label>👑 影刃 (青色)</label>
             <div class="control-row">
-                <input type="number" id="shadowBladeCount" value="0" min="0">
+                <input type="number" id="shadowBladeCount" value="1" min="0">
                 <select id="shadowBladeTeam"><option value="A">隊伍 A</option><option value="B">隊伍 B</option><option value="C" selected>隊伍 C</option><option value="D">隊伍 D</option><option value="E">隊伍 E</option></select>
             </div>
         </div>
         <div class="input-group hunter">
             <label>獵人 (黃色)</label>
             <div class="control-row">
-                <input type="number" id="hunterCount" value="0" min="0">
+                <input type="number" id="hunterCount" value="3" min="0">
                 <select id="hunterTeam"><option value="A">隊伍 A</option><option value="B">隊伍 B</option><option value="C">隊伍 C</option><option value="D" selected>隊伍 D</option><option value="E">隊伍 E</option></select>
             </div>
         </div>
         <div class="input-group sniper">
             <label>👑 神射手 (深金)</label>
             <div class="control-row">
-                <input type="number" id="sniperCount" value="0" min="0">
+                <input type="number" id="sniperCount" value="1" min="0">
                 <select id="sniperTeam"><option value="A">隊伍 A</option><option value="B">隊伍 B</option><option value="C">隊伍 C</option><option value="D" selected>隊伍 D</option><option value="E">隊伍 E</option></select>
             </div>
         </div>
@@ -246,9 +246,9 @@
         <div class="global-opt">
             <div>
                 <label>🗺️ 界域寬度: </label>
-                <input type="number" id="mapWidth" value="850">
+                <input type="number" id="mapWidth" value="950">
                 <label style="margin-left:10px;">高度: </label>
-                <input type="number" id="mapHeight" value="500">
+                <input type="number" id="mapHeight" value="550">
             </div>
             <div>
                 <label>⚡ 戰鬥流速拉桿: 
@@ -258,7 +258,7 @@
             </div>
             <div>
                 <label style="color:#00ffcc; cursor:pointer; font-weight:bold;">
-                    <input type="checkbox" id="growthModeToggle" checked> 🚀 啟動防衛大本營成長模式
+                    <input type="checkbox" id="growthModeToggle" checked> 🚀 啟動三態AI與據點加成戰略成長模式
                 </label>
             </div>
         </div>
@@ -270,7 +270,7 @@
     </div>
 
     <div id="arena-container">
-        <canvas id="arena" width="850" height="500"></canvas>
+        <canvas id="arena" width="950" height="550"></canvas>
     </div>
 
     <div id="status-display">設定戰術同盟，輸入各陣營蛐蛐數量，點擊按鈕組建陣地展開大戰！</div>
@@ -278,10 +278,10 @@
     <div id="guideModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" id="closeModal">&times;</span>
-            <h2 class="modal-title">📖 蛐蛐全職業技能特技與閃避圖鑑</h2>
+            <h2 class="modal-title">📖 蛐蛐全職業技能特技與戰略機制說明</h2>
             <table class="stat-table">
                 <thead>
-                    <tr><th>職業階級</th><th>基礎數值與量子閃避</th><th>終極特技與新機制說明</th></tr>
+                    <tr><th>職業階級</th><th>基礎數值與量子閃避</th><th>終極特技與戰略AI說明</th></tr>
                 </thead>
                 <tbody>
                     <tr style="color: #ff4d4d;">
@@ -324,6 +324,11 @@
                         <td>血量: 180 | 射程: 400 | 閃避: 12%</td>
                         <td>【🏹 破空貫穿重弩】全地圖超遠狙擊。射出穿透性極強的重型強弩，貫穿路徑上的所有敵人！</td>
                     </tr>
+                    <tr style="color: #00ffcc; font-weight: bold;">
+                        <td>🌐 戰略機制 (新)</td>
+                        <td>持久戰大局觀</td>
+                        <td><b>三態AI</b>：殘血自主奔回基地回血。<b>經濟加成</b>：控制信標據點越多，全隊每6秒升級速度越快。<b>兵源補充</b>：基地存活時每15秒自動生產新部隊。</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -341,6 +346,7 @@
         let entities = []; let projectiles = []; let particles = []; let floatingTexts = []; 
         let bases = []; let beacons = []; let obstacles = [];
         let gameActive = false; let victoryTriggered = false; let initDelayTimer = 0; let growthMode = false;
+        let globalTick = 0;
         
         let initialMaxHpStats = { warrior: 0, paladin: 0, mage: 0, archmage: 0, assassin: 0, shadowBlade: 0, hunter: 0, sniper: 0 };
 
@@ -361,9 +367,12 @@
             constructor(x, y, type, team) {
                 this.x = x; this.y = y; this.type = type; this.team = team;
                 this.hp = CONFIG[type].hp; this.maxHp = CONFIG[type].hp;
+                this.atk = this.type.includes('paladin') ? 80 : (this.type.includes('archmage') ? 50 : (this.type.includes('sniper') ? 65 : 35)); // 基礎化攻擊力儲存以便成長
                 this.speed = CONFIG[type].speed; this.radius = CONFIG[type].radius; this.color = CONFIG[type].color;
                 this.attackCd = Math.floor(Math.random() * 20);
                 
+                this.state = 'ATTACK'; // 新增狀態機: ATTACK (進攻), OCCUPY (佔領), RETREAT (撤退回城)
+                this.targetBeacon = null;
                 this.isDashing = false; this.dashTimer = 0; this.dashTargetX = 0; this.dashTargetY = 0;
                 this.attackCount = 0; 
                 
@@ -386,12 +395,69 @@
                     }
                 }
 
-                let target = this.findNearestEnemy();
+                // --- 戰略狀態機邏輯處理 ---
+                if (growthMode) {
+                    // 1. 殘血判定 -> 強制觸發撤退模式
+                    if (this.hp < this.maxHp * 0.35) {
+                        let myBase = bases.find(b => b.team === this.team && b.hp > 0);
+                        if (myBase) this.state = 'RETREAT';
+                    }
+                    // 2. 撤退模式血量回滿安全線 -> 重回戰場
+                    if (this.state === 'RETREAT' && this.hp >= this.maxHp * 0.92) {
+                        this.state = 'ATTACK';
+                    }
+                    // 3. 隨機動態分配戰術：如果不在撤退中，有機會重新思考是要去搶點還是殺敵
+                    if (this.state !== 'RETREAT' && Math.random() < 0.015) {
+                        let unownedBeacons = beacons.filter(b => b.controllingTeam !== this.team);
+                        if (unownedBeacons.length > 0 && Math.random() < 0.65) {
+                            this.state = 'OCCUPY';
+                            unownedBeacons.sort((a,b) => Math.hypot(a.x-this.x, a.y-this.y) - Math.hypot(b.x-this.x, b.y-this.y));
+                            this.targetBeacon = unownedBeacons[0];
+                        } else {
+                            this.state = 'ATTACK';
+                        }
+                    }
+                }
+
+                // 決定移動與鎖定的物理核心目標
+                let target = null;
+                let isImmediateThreat = false;
+
+                // 遇襲遭遇戰防衛機制：如果身邊有極近距離的敵人，優先開火自衛
+                let threat = this.findNearestEnemyUnitOnly();
+                if (threat && Math.hypot(threat.x - this.x, threat.y - this.y) < 110) {
+                    target = threat;
+                    isImmediateThreat = true;
+                }
+
+                // 如果周圍沒有緊急威脅，按照既定戰略方針走位
+                if (!isImmediateThreat) {
+                    if (this.state === 'RETREAT') {
+                        target = bases.find(b => b.team === this.team && b.hp > 0);
+                    } else if (this.state === 'OCCUPY' && growthMode) {
+                        if (this.targetBeacon && this.targetBeacon.controllingTeam !== this.team) {
+                            target = this.targetBeacon;
+                        } else {
+                            let unowned = beacons.filter(b => b.controllingTeam !== this.team);
+                            if (unowned.length > 0) {
+                                unowned.sort((a,b) => Math.hypot(a.x-this.x, a.y-this.y) - Math.hypot(b.x-this.x, b.y-this.y));
+                                this.targetBeacon = unowned[0];
+                                target = this.targetBeacon;
+                            } else {
+                                this.state = 'ATTACK';
+                            }
+                        }
+                    }
+                    if (this.state === 'ATTACK' || !target) {
+                        target = this.findNearestEnemy(); // 包含敵方部隊與敵方大本營
+                    }
+                }
+
                 if (!target) return;
 
                 let dist = Math.hypot(target.x - this.x, target.y - this.y);
 
-                // 【修正1】量子視線校準：取樣點探測兩者之間是否有障礙牆遮擋
+                // 量子視線校準：探測兩者之間是否有障礙牆遮擋
                 let hasLoS = true;
                 if (obstacles.length > 0) {
                     let samples = 12;
@@ -416,7 +482,6 @@
                     let moveX = Math.cos(angle) * (this.speed * multi);
                     let moveY = Math.sin(angle) * (this.speed * multi);
                     
-                    // 突進時加入流體切線繞牆
                     for (let obs of obstacles) {
                         let buffer = this.radius + 8;
                         if (this.x + moveX + buffer > obs.x && this.x + moveX - buffer < obs.x + obs.w &&
@@ -430,7 +495,7 @@
                         }
                     }
                     this.x += moveX; this.y += moveY;
-                    if (dist < this.radius + (target.radius || 25) + 8 && !target.isBase) target.takeDamage(3, this);
+                    if (dist < this.radius + (target.radius || 25) + 8 && !target.isBase && !target.isBeacon) target.takeDamage(3, this);
                     if (this.dashTimer <= 0) this.isDashing = false;
                     this.clampPosition(); return;
                 }
@@ -441,64 +506,65 @@
                 let moveDirX = Math.cos(angle);
                 let moveDirY = Math.sin(angle);
 
-                // 【修正2】重構 AI 狀態機：無視線(被牆擋住)時，遠程角色強制轉為「追擊/繞路」狀態，絕不原地射牆
-                if (this.type === 'warrior' || this.type === 'paladin') {
-                    shouldMove = true;
-                    if (dist <= rng && this.attackCd === 0 && hasLoS) this.executeWarriorAttack();
-                } else if (this.type === 'mage' || this.type === 'archmage') {
-                    if (!hasLoS) {
-                        shouldMove = true; // 視野被擋，前進包抄
-                    } else if (dist < 110 && !target.isBase) {
-                        shouldMove = true; moveDirX = -moveDirX; moveDirY = -moveDirY; // 有視野且太近，拉開拉扯
-                    } else if (dist > rng - 40) {
-                        shouldMove = true; // 太遠，前進
-                    }
-                    if (dist <= rng && this.attackCd === 0 && hasLoS) this.executeMageAttack(target);
-                } else if (this.type === 'assassin' || this.type === 'shadowBlade') {
-                    shouldMove = true;
-                    if (dist <= rng && this.attackCd === 0 && hasLoS) this.executeAssassinAttack(target);
-                } else if (this.type === 'hunter' || this.type === 'sniper') {
-                    if (!hasLoS) {
-                        shouldMove = true; // 視野被擋，尋找開火角度
-                    } else if (dist > rng - 60) {
+                // 基於狀態機與兵種特性的動態走位控制
+                if (target.isBeacon) {
+                    // 如果目的地是據點，直接全速進入圈內
+                    if (dist > 5) shouldMove = true;
+                } else {
+                    if (this.type === 'warrior' || this.type === 'paladin') {
                         shouldMove = true;
-                    } else if (dist < 150 && !target.isBase) {
-                        shouldMove = true; moveDirX = -moveDirX; moveDirY = -moveDirY; // 風箏
+                        if (dist <= rng && this.attackCd === 0 && hasLoS && !target.isBeacon) this.executeWarriorAttack();
+                    } else if (this.type === 'mage' || this.type === 'archmage') {
+                        if (!hasLoS) {
+                            shouldMove = true; 
+                        } else if (dist < 110 && !target.isBase) {
+                            shouldMove = true; moveDirX = -moveDirX; moveDirY = -moveDirY; // 拉扯風箏
+                        } else if (dist > rng - 40) {
+                            shouldMove = true; 
+                        }
+                        if (dist <= rng && this.attackCd === 0 && hasLoS && !target.isBeacon) this.executeMageAttack(target);
+                    } else if (this.type === 'assassin' || this.type === 'shadowBlade') {
+                        shouldMove = true;
+                        if (dist <= rng && this.attackCd === 0 && hasLoS && !target.isBeacon) this.executeAssassinAttack(target);
+                    } else if (this.type === 'hunter' || this.type === 'sniper') {
+                        if (!hasLoS) {
+                            shouldMove = true; 
+                        } else if (dist > rng - 60) {
+                            shouldMove = true;
+                        } else if (dist < 150 && !target.isBase) {
+                            shouldMove = true; moveDirX = -moveDirX; moveDirY = -moveDirY; 
+                        }
+                        if (dist <= rng && this.attackCd === 0 && hasLoS && !target.isBeacon) this.executeHunterAttack(target);
                     }
-                    if (dist <= rng && this.attackCd === 0 && hasLoS) this.executeHunterAttack(target);
                 }
 
-                // 【修正3】流體繞牆轉向算法（Tangent Steering）
+                // 流體繞牆轉向算法（Tangent Steering）
                 if (shouldMove) {
                     let moveX = moveDirX * this.speed;
                     let moveY = moveDirY * this.speed;
 
                     for (let obs of obstacles) {
-                        let buffer = this.radius + 12; // 預留安全碰撞半徑
+                        let buffer = this.radius + 12; 
                         if (this.x + moveX + buffer > obs.x && this.x + moveX - buffer < obs.x + obs.w &&
                             this.y + moveY + buffer > obs.y && this.y + moveY - buffer < obs.y + obs.h) {
                             
-                            // 計算障礙物中心點與當前蛐蛐的相對向量
                             let cx = obs.x + obs.w / 2;
                             let cy = obs.y + obs.h / 2;
                             let rx = this.x - cx;
                             let ry = this.y - cy;
                             
-                            // 生成一組垂直切線向量
                             let tx = -ry;
                             let ty = rx;
                             
-                            // 點積判定：選擇與原本前進方向最貼合、能最快繞過去的那一側切線
                             let dot = tx * moveX + ty * moveY;
                             if (dot < 0) { tx = -tx; ty = -ty; }
                             
                             let tLen = Math.hypot(tx, ty);
                             if (tLen > 0) {
-                                // 轉換前進向量為貼牆滑行向量
                                 moveX = (tx / tLen) * this.speed;
                                 moveY = (ty / tLen) * this.speed;
                             }
-                            break; // 單幀專注繞過一個障礙物
+                            break; 
                         }
                     }
                     this.x += moveX;
@@ -529,10 +595,20 @@
                 return nearest;
             }
 
+            findNearestEnemyUnitOnly() {
+                let nearest = null; let minDist = Infinity;
+                for (let ent of entities) {
+                    if (ent.team === this.team) continue; 
+                    let dist = Math.hypot(ent.x - this.x, ent.y - this.y);
+                    if (dist < minDist) { minDist = dist; nearest = ent; }
+                }
+                return nearest;
+            }
+
             executeWarriorAttack() {
                 this.attackCd = CONFIG[this.type].attackCd;
                 let rng = CONFIG[this.type].range;
-                let dmg = this.type === 'paladin' ? 80 : 55;
+                let dmg = this.atk;
                 particles.push({ x: this.x, y: this.y, r: this.radius, maxR: rng + 16, color: this.type === 'paladin'?'rgba(255, 119, 51, 0.5)':'rgba(255, 77, 77, 0.4)', type: 'shockwave' });
                 
                 for (let ent of entities) {
@@ -552,6 +628,7 @@
                 this.attackCd = CONFIG[this.type].attackCd;
                 this.attackCount++;
                 let angle = Math.atan2(target.y - this.y, target.x - this.x);
+                let dmg = this.atk;
                 
                 if (this.type === 'archmage' && this.attackCount % 3 === 0) {
                     particles.push({ x: target.x, y: target.y, r: 5, maxR: 70, color: 'rgba(218, 112, 214, 0.6)', type: 'shockwave' });
@@ -559,18 +636,18 @@
                     
                     for (let ent of entities) {
                         if (ent.team === this.team) continue;
-                        if (Math.hypot(ent.x - target.x, ent.y - target.y) <= 70) ent.takeDamage(75, this);
+                        if (Math.hypot(ent.x - target.x, ent.y - target.y) <= 70) ent.takeDamage(dmg * 1.5, this);
                     }
                     if (growthMode) {
                         for (let b of bases) {
-                            if (b.team !== this.team && b.hp > 0 && Math.hypot(b.x - target.x, b.y - target.y) <= 70) b.takeDamage(75, this);
+                            if (b.team !== this.team && b.hp > 0 && Math.hypot(b.x - target.x, b.y - target.y) <= 70) b.takeDamage(dmg * 1.5, this);
                         }
                     }
                 } else {
                     let isElite = this.type === 'archmage';
                     projectiles.push({
                         x: this.x, y: this.y, vx: Math.cos(angle) * (isElite?5.5:4), vy: Math.sin(angle) * (isElite?5.5:4),
-                        target: target, damage: isElite?50:45, color: this.color, radius: isElite?7:4, type: 'magic', attacker: this
+                        target: target, damage: dmg, color: this.color, radius: isElite?7:4, type: 'magic', attacker: this
                     });
                 }
             }
@@ -580,7 +657,7 @@
                 this.isDashing = true;
                 this.dashTimer = this.type === 'shadowBlade' ? 10 : 12;
                 this.dashTargetX = target.x; this.dashTargetY = target.y;
-                let dmg = this.type === 'shadowBlade' ? 50 : 35;
+                let dmg = this.atk;
                 target.takeDamage(dmg, this);
                 for (let i = 0; i < 4; i++) {
                     particles.push({ x: this.x, y: this.y, vx: (Math.random()-0.5)*2, vy: (Math.random()-0.5)*2, life: 15, color: this.type === 'shadowBlade'?'rgba(0, 255, 255, 0.5)':'rgba(77, 255, 77, 0.5)', type: 'trail' });
@@ -595,7 +672,7 @@
                     x: this.x, y: this.y, 
                     vx: Math.cos(angle) * (isElite ? 7.5 : 5.5), 
                     vy: Math.sin(angle) * (isElite ? 7.5 : 5.5),
-                    damage: isElite ? 65 : 35, 
+                    damage: this.atk, 
                     color: this.color, 
                     radius: isElite ? 5 : 3, 
                     type: isElite ? 'piercing' : 'arrow', 
@@ -677,10 +754,18 @@
                 
                 ctx.fillStyle = TEAM_COLORS[this.team]; ctx.font = 'bold 9px sans-serif';
                 ctx.fillText(this.team, this.x, this.y + 3);
+
+                // 動態在腳下渲染當前的戰略狀態機圖標
+                if (growthMode) {
+                    ctx.fillStyle = '#ffffff'; ctx.font = '8px sans-serif';
+                    let stateTag = '';
+                    if (this.state === 'RETREAT') stateTag = '🏃撤退';
+                    else if (this.state === 'OCCUPY') stateTag = '🚩戰略';
+                    if (stateTag) ctx.fillText(stateTag, this.x, this.y + this.radius + 11);
+                }
             }
         }
 
-        // 硬性防穿牆兜底修正
         function resolveObstacleCollision(ent) {
             for (let obs of obstacles) {
                 let buffer = ent.radius;
@@ -701,10 +786,10 @@
 
         function setupGame() {
             entities = []; projectiles = []; particles = []; floatingTexts = []; 
-            bases = []; beacons = []; obstacles = []; victoryTriggered = false;
+            bases = []; beacons = []; obstacles = []; victoryTriggered = false; globalTick = 0;
             
-            let finalW = parseInt(document.getElementById('mapWidth').value) || 850;
-            let finalH = parseInt(document.getElementById('mapHeight').value) || 500;
+            let finalW = parseInt(document.getElementById('mapWidth').value) || 950;
+            let finalH = parseInt(document.getElementById('mapHeight').value) || 550;
             canvas.width = finalW; canvas.height = finalH;
 
             growthMode = document.getElementById('growthModeToggle').checked;
@@ -730,42 +815,45 @@
             let len = activeTeams.length;
             let centerX = canvas.width / 2;
             let centerY = canvas.height / 2;
-            let spawnRadius = Math.min(canvas.width, canvas.height) * 0.35;
+            let spawnRadius = Math.min(canvas.width, canvas.height) * 0.36;
 
             if (growthMode) {
+                // 部署各大本營堡壘
                 activeTeams.forEach((teamName, index) => {
                     let baseAngle = (index * 2 * Math.PI) / len - Math.PI / 2;
                     let bX = centerX + Math.cos(baseAngle) * spawnRadius;
                     let bY = centerY + Math.sin(baseAngle) * spawnRadius;
                     bases.push({
-                        x: bX, y: bY, team: teamName, hp: 2000, maxHp: 2000, radius: 32, isBase: true,
+                        x: bX, y: bY, team: teamName, hp: 3000, maxHp: 3000, radius: 32, isBase: true,
                         takeDamage: function(amount, attacker) {
                             this.hp -= amount;
                             if (this.hp <= 0) {
                                 this.hp = 0;
-                                floatingTexts.push({ x: this.x, y: this.y, text: `💥 陣營【${this.team}】大本營淪陷摧毀!`, life: 55, maxLife: 55, color: '#ff1133' });
+                                floatingTexts.push({ x: this.x, y: this.y, text: `💥 【隊伍 ${this.team}】大本營淪陷摧毀!`, life: 70, maxLife: 70, color: '#ff1133' });
                             }
                         }
                     });
                 });
 
-                let bcCount = Math.min(4, Math.max(2, len));
+                // 在中央生成數個戰略戰術信標據點
+                let bcCount = 4;
                 for(let i = 0; i < bcCount; i++) {
-                    let a = (i * 2 * Math.PI) / bcCount;
+                    let a = (i * 2 * Math.PI) / bcCount + Math.PI / 4;
                     beacons.push({
-                        x: centerX + Math.cos(a) * (spawnRadius * 0.45),
-                        y: centerY + Math.sin(a) * (spawnRadius * 0.45),
-                        radius: 22, controllingTeam: null, progress: {}
+                        x: centerX + Math.cos(a) * (spawnRadius * 0.5),
+                        y: centerY + Math.sin(a) * (spawnRadius * 0.5),
+                        radius: 24, controllingTeam: null, progress: {}, isBeacon: true
                     });
                 }
 
-                let obsCount = 4 + Math.floor(Math.random() * 3);
+                // 隨機障礙牆
+                let obsCount = 5;
                 for(let i=0; i < obsCount; i++) {
                     obstacles.push({
-                        x: centerX + (Math.random() - 0.5) * (finalW * 0.6) - 30,
-                        y: centerY + (Math.random() - 0.5) * (finalH * 0.6) - 30,
-                        w: Math.random() * 60 + 50,
-                        h: Math.random() * 60 + 50
+                        x: centerX + (Math.random() - 0.5) * (finalW * 0.5) - 40,
+                        y: centerY + (Math.random() - 0.5) * (finalH * 0.5) - 40,
+                        w: Math.random() * 50 + 60,
+                        h: Math.random() * 50 + 60
                     });
                 }
             }
@@ -776,17 +864,19 @@
                 let teamCenterY = centerY + Math.sin(baseAngle) * spawnRadius;
 
                 teamGroups[teamName].forEach(type => {
-                    let r = Math.random() * 45; 
+                    let r = Math.random() * 40; 
                     let a = Math.random() * 2 * Math.PI;
                     entities.push(new Entity(teamCenterX + Math.cos(a) * r, teamCenterY + Math.sin(a) * r, type, teamName));
                 });
             });
 
             initDelayTimer = 15; gameActive = true; 
-            statusDisplay.innerText = growthMode ? "🏰 戰略大腦已加載！蛐蛐開始繞牆走位包抄！" : "決戰打響！";
+            statusDisplay.innerText = growthMode ? "🏰 戰略大腦與持久成長加載完成！殘血蛐蛐會自動奔回高地！" : "決戰打響！";
         }
 
         function advancePhysicsStep() {
+            globalTick++;
+
             for (let i = entities.length - 1; i >= 0; i--) {
                 let ent = entities[i];
                 ent.update();
@@ -795,46 +885,117 @@
             }
 
             if (growthMode) {
+                // 1. 堡壘基地光環：友軍靠近 130px 範圍內會持續高速修復生命值
                 for (let b of bases) {
                     if (b.hp <= 0) continue;
                     for (let ent of entities) {
                         if (ent.team === b.team) {
                             if (Math.hypot(ent.x - b.x, ent.y - b.y) <= 130) {
-                                ent.hp = Math.min(ent.maxHp, ent.hp + 0.18);
-                                if (Math.random() < 0.015) {
-                                    particles.push({ x: ent.x, y: ent.y, vx: 0, vy: -0.6, life: 10, color: '#00ff66', type: 'spark' });
+                                ent.hp = Math.min(ent.maxHp, ent.hp + 0.6); // 基地提供強力治療
+                                if (Math.random() < 0.03) {
+                                    particles.push({ x: ent.x, y: ent.y, vx: 0, vy: -0.8, life: 12, color: '#00ff66', type: 'spark' });
                                 }
                             }
                         }
                     }
                 }
 
+                // 2. 信標據點多陣營拔河佔領機制
                 for (let bc of beacons) {
                     let counts = { A: 0, B: 0, C: 0, D: 0, E: 0 };
                     for (let ent of entities) {
-                        if (Math.hypot(ent.x - bc.x, ent.y - bc.y) <= bc.radius + 5) counts[ent.team]++;
+                        if (Math.hypot(ent.x - bc.x, ent.y - bc.y) <= bc.radius + 15) counts[ent.team]++;
                     }
-                    let activeInBc = Object.keys(counts).filter(t => counts[t] > 0);
-                    if (activeInBc.length === 1) {
-                        let t = activeInBc[0];
-                        if (bc.controllingTeam !== t) {
-                            bc.progress[t] = (bc.progress[t] || 0) + 0.5;
-                            if (bc.progress[t] >= 100) {
-                                bc.controllingTeam = t;
-                                floatingTexts.push({ x: bc.x, y: bc.y - 25, text: `🚩 信標被隊伍 ${t} 佔領!`, life: 40, maxLife: 40, color: TEAM_COLORS[t] });
+                    
+                    let maxTeam = null; let maxCount = 0; let totalPresent = 0;
+                    Object.keys(counts).forEach(t => {
+                        totalPresent += counts[t];
+                        if (counts[t] > maxCount) { maxCount = counts[t]; maxTeam = t; }
+                    });
+
+                    // 具有絕對人數優勢的陣營才能推動進度條
+                    if (maxTeam && maxCount > (totalPresent - maxCount)) {
+                        if (bc.controllingTeam && bc.controllingTeam !== maxTeam) {
+                            // 敵方正在佔領：先扣減其原有的控制權 (淨化據點)
+                            bc.progress[bc.controllingTeam] -= 1.2;
+                            if (bc.progress[bc.controllingTeam] <= 0) {
+                                floatingTexts.push({ x: bc.x, y: bc.y - 25, text: `🏳️ 據點變回中立狀態`, life: 40, maxLife: 40, color: '#ffffff' });
+                                bc.controllingTeam = null;
+                            }
+                        } else if (!bc.controllingTeam) {
+                            // 中立狀態下增加佔領進度
+                            bc.progress[maxTeam] = (bc.progress[maxTeam] || 0) + 1.2;
+                            if (bc.progress[maxTeam] >= 100) {
+                                bc.controllingTeam = maxTeam;
+                                floatingTexts.push({ x: bc.x, y: bc.y - 25, text: `🚩 據點被【隊伍 ${maxTeam}】攻占!`, life: 45, maxLife: 45, color: TEAM_COLORS[maxTeam] });
                             }
                         }
                     }
+
+                    // 控制據點的福利：圈內的當前陣營部隊機率刷新護盾
                     if (bc.controllingTeam) {
                         for (let ent of entities) {
-                            if (ent.team === bc.controllingTeam && Math.random() < 0.004) {
-                                ent.shield = Math.min(ent.maxShield + 30, ent.shield + 3);
+                            if (ent.team === bc.controllingTeam && Math.random() < 0.006) {
+                                ent.shield = Math.min(ent.maxShield + 40, ent.shield + 4);
                             }
                         }
                     }
                 }
+
+                // 3. 核心持久戰：隨著時間流逝全面提升數值（據點佔領越多，升級速率越恐怖）
+                if (globalTick % 240 === 0) { // 每隔約5-6秒結算一次經濟
+                    let teamBeacons = { A: 0, B: 0, C: 0, D: 0, E: 0 };
+                    beacons.forEach(b => { if (b.controllingTeam) teamBeacons[b.controllingTeam]++; });
+
+                    entities.forEach(ent => {
+                        let controlledCount = teamBeacons[ent.team] || 0;
+                        // 基礎加成 100% + 每個據點提供額外 80% 的暴增系數！
+                        let growthFactor = 1 + controlledCount * 0.8; 
+
+                        let hpBonus = Math.floor(18 * growthFactor);
+                        let atkBonus = Math.floor(3 * growthFactor);
+
+                        ent.maxHp += hpBonus;
+                        ent.hp += hpBonus; // 同步加血
+                        ent.hp = Math.min(ent.hp, ent.maxHp);
+                        ent.atk += atkBonus;
+
+                        if (Math.random() < 0.12) {
+                            floatingTexts.push({ x: ent.x, y: ent.y - 32, text: `🔺升級! ATK+${atkBonus}`, life: 30, maxLife: 30, color: '#ffcc00' });
+                        }
+                    });
+                }
+
+                // 4. 無限持久戰保證：大本營堡壘只要活著，每隔 15 秒自動徵召援軍衝往前線
+                if (globalTick % 540 === 0) { 
+                    bases.forEach(b => {
+                        if (b.hp <= 0) return;
+                        
+                        let teamUnits = entities.filter(e => e.team === b.team);
+                        if (teamUnits.length < 20) { // 設置上限防卡死
+                            let baseClasses = ['warrior', 'mage', 'assassin', 'hunter'];
+                            let chosenType = baseClasses[Math.floor(Math.random() * baseClasses.length)];
+                            
+                            let r = Math.random() * 25; let a = Math.random() * 2 * Math.PI;
+                            let newSoldier = new Entity(b.x + Math.cos(a) * r, b.y + Math.sin(a) * r, chosenType, b.team);
+                            
+                            // 數值平衡：新兵自動繼承前線老兵的平均數值 (打折至90%)，避免一進場就落後時代
+                            if (teamUnits.length > 0) {
+                                let avgMaxHp = teamUnits.reduce((sum, e) => sum + e.maxHp, 0) / teamUnits.length;
+                                let avgAtk = teamUnits.reduce((sum, e) => sum + e.atk, 0) / teamUnits.length;
+                                newSoldier.maxHp = Math.round(avgMaxHp * 0.9);
+                                newSoldier.hp = newSoldier.maxHp;
+                                newSoldier.atk = Math.round(avgAtk * 0.9);
+                            }
+
+                            entities.push(newSoldier);
+                            floatingTexts.push({ x: b.x, y: b.y - 45, text: `➕ 兵工廠：援軍出擊!`, life: 45, maxLife: 45, color: TEAM_COLORS[b.team] });
+                        }
+                    });
+                }
             }
 
+            // 投射物物理與碰撞
             for (let i = projectiles.length - 1; i >= 0; i--) {
                 let p = projectiles[i];
                 let exploded = false;
@@ -909,25 +1070,42 @@
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+            // 繪製固態障礙物
             for (let obs of obstacles) {
                 ctx.fillStyle = '#30303d'; ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
                 ctx.strokeStyle = '#4a4a5a'; ctx.lineWidth = 2; ctx.strokeRect(obs.x, obs.y, obs.w, obs.h);
             }
 
+            // 繪製戰略信標據點
             for (let bc of beacons) {
                 ctx.beginPath(); ctx.arc(bc.x, bc.y, bc.radius, 0, Math.PI * 2);
                 ctx.strokeStyle = bc.controllingTeam ? TEAM_COLORS[bc.controllingTeam] : '#666';
                 ctx.lineWidth = 3; ctx.stroke();
                 ctx.fillStyle = bc.controllingTeam ? `${TEAM_COLORS[bc.controllingTeam]}22` : 'rgba(255,255,255,0.03)'; ctx.fill();
                 
-                ctx.beginPath(); ctx.arc(bc.x, bc.y, 5, 0, Math.PI * 2);
+                // 渲染圓心旗幟點
+                ctx.beginPath(); ctx.arc(bc.x, bc.y, 6, 0, Math.PI * 2);
                 ctx.fillStyle = bc.controllingTeam ? TEAM_COLORS[bc.controllingTeam] : '#555'; ctx.fill();
+
+                // 渲染動態拔河控制進度
+                if (!bc.controllingTeam) {
+                    let textPercent = "";
+                    Object.keys(bc.progress).forEach(t => { if(bc.progress[t] > 0) textPercent = `${t}:${Math.floor(bc.progress[t])}%` });
+                    if(textPercent) {
+                        ctx.fillStyle = '#aaa'; ctx.font = '9px monospace'; ctx.textAlign = 'center';
+                        ctx.fillText(textPercent, bc.x, bc.y - bc.radius - 5);
+                    }
+                } else {
+                    ctx.fillStyle = TEAM_COLORS[bc.controllingTeam]; ctx.font = 'bold 9px sans-serif'; ctx.textAlign = 'center';
+                    ctx.fillText(`★控`, bc.x, bc.y - bc.radius - 5);
+                }
             }
 
+            // 繪製大本營堡壘與其修復圈
             for (let b of bases) {
                 if (b.hp <= 0) continue;
                 ctx.beginPath(); ctx.arc(b.x, b.y, 130, 0, Math.PI * 2);
-                ctx.strokeStyle = `${TEAM_COLORS[b.team]}11`; ctx.lineWidth = 1; ctx.stroke();
+                ctx.strokeStyle = `${TEAM_COLORS[b.team]}11`; ctx.lineWidth = 1; ctx.stroke(); // 修復補血圈
 
                 ctx.beginPath(); ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
                 ctx.fillStyle = '#15151f'; ctx.strokeStyle = TEAM_COLORS[b.team]; ctx.lineWidth = 4;
@@ -990,28 +1168,39 @@
                 for (let b of bases) { if (b.hp > 0) aliveTeams.add(b.team); }
             }
 
-            let stats = {
-                warrior: { name: '戰士', count: 0, currentHp: 0 }, paladin: { name: '聖騎士', count: 0, currentHp: 0 },
-                mage: { name: '法師', count: 0, currentHp: 0 }, archmage: { name: '大法師', count: 0, currentHp: 0 },
-                assassin: { name: '刺客', count: 0, currentHp: 0 }, shadowBlade: { name: '影刃', count: 0, currentHp: 0 },
-                hunter: { name: '獵人', count: 0, currentHp: 0 }, sniper: { name: '神射手', count: 0, currentHp: 0 }
-            };
+            // 動態頂部即時統計面板
+            let countsText = {};
+            entities.forEach(e => { countsText[e.team] = (countsText[e.team] || 0) + 1; });
+            
+            let teamBeacons = { A: 0, B: 0, C: 0, D: 0, E: 0 };
+            beacons.forEach(b => { if (b.controllingTeam) teamBeacons[b.controllingTeam]++; });
 
-            entities.forEach(e => { if (stats[e.type]) { stats[e.type].count++; stats[e.type].currentHp += Math.max(0, e.hp); } });
-
-            let reportHtml = `<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 6px; text-align:left;">`;
-            Object.keys(stats).forEach(k => {
-                let s = stats[k]; let maxHp = initialMaxHpStats[k];
-                if (maxHp > 0) reportHtml += `<span style="color:${CONFIG[k].color}">${s.name}: ${s.count} 隻 (血量: ${Math.ceil(s.currentHp)}/${maxHp})</span>`;
+            let reportHtml = `<div style="display:flex; justify-content:center; flex-wrap:wrap; gap:15px; text-align:center; font-weight:bold;">`;
+            let activeTeams = Object.keys(TEAM_COLORS);
+            
+            let displaysAdded = 0;
+            activeTeams.forEach(t => {
+                let uCount = countsText[t] || 0;
+                let bCount = teamBeacons[t] || 0;
+                let baseObj = bases.find(b => b.team === t);
+                let baseHpStr = baseObj ? (baseObj.hp > 0 ? `${Math.ceil(baseObj.hp)}/3000` : "💥已淪陷") : "無基地";
+                
+                // 只有參戰或活著的隊伍才顯示
+                if (uCount > 0 || (baseObj && baseObj.hp > 0)) {
+                    displaysAdded++;
+                    reportHtml += `<span style="color:${TEAM_COLORS[t]}; background:#1a1a24; padding:5px 10px; border-radius:5px; border:1px solid ${TEAM_COLORS[t]}">
+                        隊伍 ${t} | 🐜單位: ${uCount} | 🚩據點: ${bCount}座 (經濟成長 ×${(1 + bCount * 0.8).toFixed(1)}) | 🏯基地: ${baseHpStr}
+                    </span>`;
+                }
             });
             reportHtml += `</div>`;
 
             if (aliveTeams.size === 1 && (entities.length > 0 || (growthMode && bases.some(b => b.hp > 0)))) {
                 let winningTeam = [...aliveTeams][0];
-                statusDisplay.innerHTML = `${reportHtml}<div style="color:${TEAM_COLORS[winningTeam]}; font-size:20px; margin-top:8px; font-weight:bold;">👑 大局已定！恭喜同盟【隊伍 ${winningTeam}】橫掃寰宇，贏得終極大捷！👑</div>`;
+                statusDisplay.innerHTML = `${reportHtml}<div style="color:${TEAM_COLORS[winningTeam]}; font-size:20px; margin-top:8px; font-weight:bold;">👑 大局已定！恭喜同盟【隊伍 ${winningTeam}】推平敵軍基地，贏得終極拉鋸拉扯戰勝利！👑</div>`;
                 gameActive = false; victoryTriggered = true;
             } else if (aliveTeams.size === 0) {
-                statusDisplay.innerHTML = `${reportHtml}<div style="color:#aaa; font-size:20px; margin-top:8px; font-weight:bold;">💀 同歸於盡！戰場上已無任何陣營火種留存！💀</div>`;
+                statusDisplay.innerHTML = `${reportHtml}<div style="color:#aaa; font-size:20px; margin-top:8px; font-weight:bold;">💀 全軍覆沒！所有陣營大本營與部隊均在拉鋸戰中化為焦土！💀</div>`;
                 gameActive = false;
             } else {
                 statusDisplay.innerHTML = reportHtml;
