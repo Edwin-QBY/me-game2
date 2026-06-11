@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>賽博微型鬥蛐蛐模擬器 - 全面戰爭版</title>
+    <title>賽博微型鬥蛐蛐模擬器 - 全面戰爭防衛成長版</title>
     <style>
         body {
             margin: 0;
@@ -32,7 +32,7 @@
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 12px;
             width: 100%;
-            max-width: 900px;
+            max-width: 950px;
             margin-bottom: 20px;
         }
 
@@ -60,7 +60,7 @@
         .control-row { display: flex; gap: 5px; width: 100%; justify-content: center; }
 
         input[type="number"] {
-            width: 45px;
+            width: 50px;
             padding: 5px;
             border: none;
             border-radius: 4px;
@@ -80,6 +80,21 @@
             cursor: pointer;
             font-size: 12px;
         }
+
+        .global-opt {
+            grid-column: 1 / -1;
+            background: #1f1f2a;
+            border: 1px dashed #ffcc00;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border-radius: 6px;
+        }
+
+        .global-opt label { font-size: 13px; display: flex; align-items: center; gap: 5px; }
 
         .btn-container {
             grid-column: 1 / -1;
@@ -105,7 +120,14 @@
         #bookBtn { background-color: #8b5a2b; color: #fff; }
         #bookBtn:hover { background-color: #a06d3b; transform: translateY(-2px); }
 
-        /* 戰場畫布 */
+        /* 戰場畫布容器 */
+        #arena-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            overflow: auto;
+        }
+
         canvas {
             background-color: #111116;
             border: 3px solid #3a3a4a;
@@ -123,7 +145,7 @@
             padding: 12px;
             border-radius: 8px;
             width: 100%;
-            max-width: 880px;
+            max-width: 930px;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
         }
 
@@ -164,63 +186,83 @@
 </head>
 <body>
 
-    <h1>賽博微型鬥蛐蛐大賽 - 全面戰爭版</h1>
+    <h1>賽博微型鬥蛐蛐大賽 - 全面戰爭防衛成長版</h1>
 
     <div id="control-panel">
         <div class="input-group warrior">
             <label>戰士 (紅)</label>
             <div class="control-row">
-                <input type="number" id="warriorCount" value="3" min="0">
+                <input type="number" id="warriorCount" value="0" min="0">
                 <select id="warriorTeam"><option value="A" selected>隊伍 A</option><option value="B">隊伍 B</option><option value="C">隊伍 C</option><option value="D">隊伍 D</option><option value="E">隊伍 E</option></select>
             </div>
         </div>
         <div class="input-group paladin">
             <label>👑 聖騎士 (橘紅)</label>
             <div class="control-row">
-                <input type="number" id="paladinCount" value="1" min="0">
+                <input type="number" id="paladinCount" value="0" min="0">
                 <select id="paladinTeam"><option value="A" selected>隊伍 A</option><option value="B">隊伍 B</option><option value="C">隊伍 C</option><option value="D">隊伍 D</option><option value="E">隊伍 E</option></select>
             </div>
         </div>
         <div class="input-group mage">
             <label>法師 (藍)</label>
             <div class="control-row">
-                <input type="number" id="mageCount" value="3" min="0">
+                <input type="number" id="mageCount" value="0" min="0">
                 <select id="mageTeam"><option value="A">隊伍 A</option><option value="B" selected>隊伍 B</option><option value="C">隊伍 C</option><option value="D">隊伍 D</option><option value="E">隊伍 E</option></select>
             </div>
         </div>
         <div class="input-group archmage">
             <label>👑 大法師 (蘭紫)</label>
             <div class="control-row">
-                <input type="number" id="archmageCount" value="1" min="0">
+                <input type="number" id="archmageCount" value="0" min="0">
                 <select id="archmageTeam"><option value="A">隊伍 A</option><option value="B" selected>隊伍 B</option><option value="C">隊伍 C</option><option value="D">隊伍 D</option><option value="E">隊伍 E</option></select>
             </div>
         </div>
         <div class="input-group assassin">
             <label>刺客 (綠)</label>
             <div class="control-row">
-                <input type="number" id="assassinCount" value="3" min="0">
+                <input type="number" id="assassinCount" value="0" min="0">
                 <select id="assassinTeam"><option value="A">隊伍 A</option><option value="B">隊伍 B</option><option value="C" selected>隊伍 C</option><option value="D">隊伍 D</option><option value="E">隊伍 E</option></select>
             </div>
         </div>
         <div class="input-group shadowBlade">
             <label>👑 影刃 (青色)</label>
             <div class="control-row">
-                <input type="number" id="shadowBladeCount" value="1" min="0">
+                <input type="number" id="shadowBladeCount" value="0" min="0">
                 <select id="shadowBladeTeam"><option value="A">隊伍 A</option><option value="B">隊伍 B</option><option value="C" selected>隊伍 C</option><option value="D">隊伍 D</option><option value="E">隊伍 E</option></select>
             </div>
         </div>
         <div class="input-group hunter">
             <label>獵人 (黃色)</label>
             <div class="control-row">
-                <input type="number" id="hunterCount" value="2" min="0">
+                <input type="number" id="hunterCount" value="0" min="0">
                 <select id="hunterTeam"><option value="A">隊伍 A</option><option value="B">隊伍 B</option><option value="C">隊伍 C</option><option value="D" selected>隊伍 D</option><option value="E">隊伍 E</option></select>
             </div>
         </div>
         <div class="input-group sniper">
             <label>👑 神射手 (深金)</label>
             <div class="control-row">
-                <input type="number" id="sniperCount" value="1" min="0">
+                <input type="number" id="sniperCount" value="0" min="0">
                 <select id="sniperTeam"><option value="A">隊伍 A</option><option value="B">隊伍 B</option><option value="C">隊伍 C</option><option value="D" selected>隊伍 D</option><option value="E">隊伍 E</option></select>
+            </div>
+        </div>
+
+        <div class="global-opt">
+            <div>
+                <label>🗺️ 界域寬度: </label>
+                <input type="number" id="mapWidth" value="850">
+                <label style="margin-left:10px;">高度: </label>
+                <input type="number" id="mapHeight" value="500">
+            </div>
+            <div>
+                <label>⚡ 戰鬥流速拉桿: 
+                    <input type="range" id="gameSpeed" min="1" max="5" value="1" step="1" oninput="document.getElementById('speedText').innerText = this.value + 'x'">
+                    <span id="speedText" style="color:#ffcc00; font-family:monospace;">1x</span>
+                </label>
+            </div>
+            <div>
+                <label style="color:#00ffcc; cursor:pointer; font-weight:bold;">
+                    <input type="checkbox" id="growthModeToggle"> 🚀 啟動防衛大本營成長模式
+                </label>
             </div>
         </div>
 
@@ -234,56 +276,56 @@
         <canvas id="arena" width="850" height="500"></canvas>
     </div>
 
-    <div id="status-display">設定戰術同盟，組建多個敵對陣營，點擊按鈕放蛐蛐進場作戰！</div>
+    <div id="status-display">設定戰術同盟，輸入各陣營蛐蛐數量，點擊按鈕組建陣地展開大戰！</div>
 
     <div id="guideModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" id="closeModal">&times;</span>
-            <h2 class="modal-title">📖 蛐蛐全職業技能特技圖鑑</h2>
+            <h2 class="modal-title">📖 蛐蛐全職業技能特技與閃避圖鑑</h2>
             <table class="stat-table">
                 <thead>
-                    <tr><th>職業階級</th><th>加強數值</th><th>終極特技與新機制說明</th></tr>
+                    <tr><th>職業階級</th><th>基礎數值與量子閃避</th><th>終極特技與新機制說明</th></tr>
                 </thead>
                 <tbody>
                     <tr style="color: #ff4d4d;">
                         <td>戰士 (基礎)</td>
-                        <td>血量: 350 | 傷害: 55</td>
-                        <td>【數值大加強】近戰揮砍，對前方範圍造成高額群體傷害。</td>
+                        <td>血量: 350 | 傷害: 55 | 閃避: 10%</td>
+                        <td>【揮砍】近戰揮砍，對前方範圍造成高額群體傷害。</td>
                     </tr>
                     <tr style="color: #ff7733; font-weight: bold;">
                         <td>👑 聖騎士 (上位)</td>
-                        <td>血量: 650 | 傷害: 80</td>
-                        <td>【神聖不滅】極限肉盾。自帶被動<strong>減傷 20%</strong>，大刀揮砍範圍大幅度拓寬。</td>
+                        <td>血量: 650 | 傷害: 80 | 閃避: 5%</td>
+                        <td>【神聖不滅】極限肉盾。自帶減傷 20%，大刀揮砍範圍大幅度拓寬。</td>
                     </tr>
                     <tr style="color: #4da6ff;">
                         <td>法師 (基礎)</td>
-                        <td>血量: 120 | 速度: 1.0</td>
-                        <td>【奧術護盾】開局附帶 <strong>50點護盾</strong> 吸收傷害，破盾後每隔一段時間會自律充能全滿。</td>
+                        <td>血量: 120 | 速度: 1.0 | 閃避: 12%</td>
+                        <td>【奧術護盾】開局附帶 50點護盾 吸收傷害，破盾後自律充能全滿。</td>
                     </tr>
                     <tr style="color: #da70d6; font-weight: bold;">
                         <td>👑 大法師 (上位)</td>
-                        <td>血量: 200 | 速度: 0.9</td>
-                        <td>【💥 元素爆轟】開局內置 <strong>120點強效盾</strong>。每 3 次射擊後，必觸發大範圍落雷元素爆轟，造成 75 點大範圍真實群傷。</td>
+                        <td>血量: 200 | 速度: 0.9 | 閃避: 15%</td>
+                        <td>【💥 元素爆轟】開局內置 120點強效盾。每 3 次射擊觸發落雷元素爆轟大範圍真傷。</td>
                     </tr>
                     <tr style="color: #4dff4d;">
                         <td>刺客 (基礎)</td>
-                        <td>血量: 140 | 速度: 2.3</td>
-                        <td>【絕地斬殺】突擊重擊。自帶 <strong>35% 殘暴吸血</strong>。若敵方血量低於 35%，攻擊觸發 <strong>1.6倍斬殺暴擊</strong>！</td>
+                        <td>血量: 140 | 速度: 2.3 | 閃避: 25%</td>
+                        <td>【絕地斬殺】高概率閃避。自帶 35% 吸血。目標低於 35% 血量觸發 1.6倍斬殺！</td>
                     </tr>
                     <tr style="color: #00ffff; font-weight: bold;">
                         <td>👑 影刃 (上位)</td>
-                        <td>血量: 220 | 速度: 2.5</td>
-                        <td>【瞬殺影襲】超高速突進。自帶 <strong>55% 極致吸血</strong>。敵方血量低於 40% 時，觸發致命的 <strong>2.2倍 絕地斬殺</strong>！</td>
+                        <td>血量: 220 | 速度: 2.5 | 閃避: 35%</td>
+                        <td>【瞬殺影襲】鬼影莫測。身法飄逸擁有 35% 超高閃避。敵方低於 40% 血量觸發 2.2倍爆發斬殺！</td>
                     </tr>
                     <tr style="color: #e6b800;">
                         <td>獵人 (新陣營)</td>
-                        <td>血量: 130 | 射程: 300</td>
+                        <td>血量: 130 | 射程: 300 | 閃避: 15%</td>
                         <td>【流星點射】新長手流派。以極高初速射出物理箭矢，鎖定並進行直線常規射擊。</td>
                     </tr>
                     <tr style="color: #ffaa00; font-weight: bold;">
                         <td>👑 神射手 (上位)</td>
-                        <td>血量: 180 | 射程: 400</td>
-                        <td>【🏹 破空貫穿重弩】全地圖超遠狙擊。射出穿透性極強的重型強弩，<strong>直接貫穿路徑上的所有敵人</strong>！</td>
+                        <td>血量: 180 | 射程: 400 | 閃避: 12%</td>
+                        <td>【🏹 破空貫穿重弩】全地圖超遠狙擊。射出穿透性極強的重型強弩，貫穿路徑上的所有敵人！</td>
                     </tr>
                 </tbody>
             </table>
@@ -300,19 +342,20 @@
         const statusDisplay = document.getElementById('status-display');
 
         let entities = []; let projectiles = []; let particles = []; let floatingTexts = []; 
-        let gameActive = false; let victoryTriggered = false; let initDelayTimer = 0;
+        let bases = []; let beacons = []; let obstacles = [];
+        let gameActive = false; let victoryTriggered = false; let initDelayTimer = 0; let growthMode = false;
         
         let initialMaxHpStats = { warrior: 0, paladin: 0, mage: 0, archmage: 0, assassin: 0, shadowBlade: 0, hunter: 0, sniper: 0 };
 
         const CONFIG = {
-            warrior: { name: '戰士', color: '#ff4d4d', hp: 350, speed: 1.7, radius: 10, attackCd: 45, range: 35 },
-            paladin: { name: '聖騎士', color: '#ff7733', hp: 650, speed: 1.5, radius: 12, attackCd: 50, range: 48 },
-            mage: { name: '法師', color: '#4da6ff', hp: 120, speed: 1.0, radius: 8, attackCd: 75, range: 250 },
-            archmage: { name: '大法師', color: '#da70d6', hp: 200, speed: 0.9, radius: 9, attackCd: 85, range: 280 },
-            assassin: { name: '刺客', color: '#4dff4d', hp: 140, speed: 2.3, radius: 9, attackCd: 85, range: 120 },
-            shadowBlade: { name: '影刃', color: '#00ffff', hp: 220, speed: 2.5, radius: 10, attackCd: 75, range: 140 },
-            hunter: { name: '獵人', color: '#e6b800', hp: 130, speed: 1.4, radius: 8, attackCd: 60, range: 300 },
-            sniper: { name: '神射手', color: '#ffaa00', hp: 180, speed: 1.3, radius: 9, attackCd: 95, range: 400 }
+            warrior: { name: '戰士', color: '#ff4d4d', hp: 350, speed: 1.7, radius: 10, attackCd: 45, range: 35, dodge: 0.10 },
+            paladin: { name: '聖騎士', color: '#ff7733', hp: 650, speed: 1.5, radius: 12, attackCd: 50, range: 48, dodge: 0.05 },
+            mage: { name: '法師', color: '#4da6ff', hp: 120, speed: 1.0, radius: 8, attackCd: 75, range: 250, dodge: 0.12 },
+            archmage: { name: '大法師', color: '#da70d6', hp: 200, speed: 0.9, radius: 9, attackCd: 85, range: 280, dodge: 0.15 },
+            assassin: { name: '刺客', color: '#4dff4d', hp: 140, speed: 2.3, radius: 9, attackCd: 85, range: 120, dodge: 0.25 },
+            shadowBlade: { name: '影刃', color: '#00ffff', hp: 220, speed: 2.5, radius: 10, attackCd: 75, range: 140, dodge: 0.35 },
+            hunter: { name: '獵人', color: '#e6b800', hp: 130, speed: 1.4, radius: 8, attackCd: 60, range: 300, dodge: 0.15 },
+            sniper: { name: '神射手', color: '#ffaa00', hp: 180, speed: 1.3, radius: 9, attackCd: 95, range: 400, dodge: 0.12 }
         };
 
         const TEAM_COLORS = { A: '#ff4d4d', B: '#4da6ff', C: '#4dff4d', D: '#ffcc00', E: '#e066ff' };
@@ -327,7 +370,6 @@
                 this.isDashing = false; this.dashTimer = 0; this.dashTargetX = 0; this.dashTargetY = 0;
                 this.attackCount = 0; 
                 
-                // 護盾初始化
                 this.shield = 0; this.maxShield = 0; this.shieldTimer = 0;
                 if (this.type === 'mage') { this.shield = 50; this.maxShield = 50; }
                 if (this.type === 'archmage') { this.shield = 120; this.maxShield = 120; }
@@ -336,7 +378,6 @@
             update() {
                 if (this.attackCd > 0) this.attackCd--;
                 
-                // 法師護盾定時再生自律機制
                 if (this.type === 'mage' || this.type === 'archmage') {
                     if (this.shield <= 0) {
                         this.shieldTimer++;
@@ -359,7 +400,7 @@
                     let multi = this.type === 'shadowBlade' ? 4.6 : 4.1;
                     this.x += Math.cos(angle) * (this.speed * multi);
                     this.y += Math.sin(angle) * (this.speed * multi);
-                    if (dist < this.radius + target.radius + 8) target.takeDamage(3, this);
+                    if (dist < this.radius + (target.radius || 25) + 8 && !target.isBase) target.takeDamage(3, this);
                     if (this.dashTimer <= 0) this.isDashing = false;
                     this.clampPosition(); return;
                 }
@@ -371,7 +412,7 @@
                     this.x += Math.cos(angle) * this.speed; this.y += Math.sin(angle) * this.speed;
                     if (dist <= rng && this.attackCd === 0) this.executeWarriorAttack();
                 } else if (this.type === 'mage' || this.type === 'archmage') {
-                    if (dist < 110) {
+                    if (dist < 110 && !target.isBase) {
                         this.x -= Math.cos(angle) * this.speed; this.y -= Math.sin(angle) * this.speed;
                     } else if (dist > rng - 40) {
                         this.x += Math.cos(angle) * this.speed; this.y += Math.sin(angle) * this.speed;
@@ -383,7 +424,7 @@
                 } else if (this.type === 'hunter' || this.type === 'sniper') {
                     if (dist > rng - 60) {
                         this.x += Math.cos(angle) * this.speed; this.y += Math.sin(angle) * this.speed;
-                    } else if (dist < 150) {
+                    } else if (dist < 150 && !target.isBase) {
                         this.x -= Math.cos(angle) * this.speed; this.y -= Math.sin(angle) * this.speed;
                     }
                     if (dist <= rng && this.attackCd === 0) this.executeHunterAttack(target);
@@ -403,6 +444,14 @@
                     let dist = Math.hypot(ent.x - this.x, ent.y - this.y);
                     if (dist < minDist) { minDist = dist; nearest = ent; }
                 }
+                // 成長模式下：若敵方隊員被殺光，則將目標鎖定在未被摧毀的敵方大本營上
+                if (growthMode && !nearest) {
+                    for (let b of bases) {
+                        if (b.team === this.team || b.hp <= 0) continue;
+                        let dist = Math.hypot(b.x - this.x, b.y - this.y);
+                        if (dist < minDist) { minDist = dist; nearest = b; }
+                    }
+                }
                 return nearest;
             }
 
@@ -411,9 +460,18 @@
                 let rng = CONFIG[this.type].range;
                 let dmg = this.type === 'paladin' ? 80 : 55;
                 particles.push({ x: this.x, y: this.y, r: this.radius, maxR: rng + 16, color: this.type === 'paladin'?'rgba(255, 119, 51, 0.5)':'rgba(255, 77, 77, 0.4)', type: 'shockwave' });
+                
                 for (let ent of entities) {
                     if (ent.team === this.team) continue;
                     if (Math.hypot(ent.x - this.x, ent.y - this.y) <= rng + ent.radius) ent.takeDamage(dmg, this);
+                }
+
+                if (growthMode) {
+                    for (let b of bases) {
+                        if (b.team !== this.team && b.hp > 0) {
+                            if (Math.hypot(b.x - this.x, b.y - this.y) <= rng + b.radius) b.takeDamage(dmg, this);
+                        }
+                    }
                 }
             }
 
@@ -422,15 +480,17 @@
                 this.attackCount++;
                 let angle = Math.atan2(target.y - this.y, target.x - this.x);
                 
-                // 大法師特技：每 3 下發動一次大範圍落雷轟炸
                 if (this.type === 'archmage' && this.attackCount % 3 === 0) {
                     particles.push({ x: target.x, y: target.y, r: 5, maxR: 70, color: 'rgba(218, 112, 214, 0.6)', type: 'shockwave' });
                     floatingTexts.push({ x: target.x, y: target.y - 30, text: '💥 元素爆轟!', life: 40, maxLife: 40, color: '#da70d6' });
                     
                     for (let ent of entities) {
                         if (ent.team === this.team) continue;
-                        if (Math.hypot(ent.x - target.x, ent.y - target.y) <= 70) {
-                            ent.takeDamage(75, this);
+                        if (Math.hypot(ent.x - target.x, ent.y - target.y) <= 70) ent.takeDamage(75, this);
+                    }
+                    if (growthMode) {
+                        for (let b of bases) {
+                            if (b.team !== this.team && b.hp > 0 && Math.hypot(b.x - target.x, b.y - target.y) <= 70) b.takeDamage(75, this);
                         }
                     }
                 } else {
@@ -449,8 +509,8 @@
                 this.dashTargetX = target.x; this.dashTargetY = target.y;
                 let dmg = this.type === 'shadowBlade' ? 50 : 35;
                 target.takeDamage(dmg, this);
-                for (let i = 0; i < 3; i++) {
-                    particles.push({ x: this.x, y: this.y, vx: 0, vy: 0, life: 15, color: this.type === 'shadowBlade'?'rgba(0, 255, 255, 0.4)':'rgba(77, 255, 77, 0.4)', type: 'trail' });
+                for (let i = 0; i < 4; i++) {
+                    particles.push({ x: this.x, y: this.y, vx: (Math.random()-0.5)*2, vy: (Math.random()-0.5)*2, life: 15, color: this.type === 'shadowBlade'?'rgba(0, 255, 255, 0.5)':'rgba(77, 255, 77, 0.5)', type: 'trail' });
                 }
             }
 
@@ -458,7 +518,6 @@
                 this.attackCd = CONFIG[this.type].attackCd;
                 let angle = Math.atan2(target.y - this.y, target.x - this.x);
                 let isElite = this.type === 'sniper';
-                // 獵人發射單體箭，神射手發射直線穿透巨弩
                 projectiles.push({
                     x: this.x, y: this.y, 
                     vx: Math.cos(angle) * (isElite ? 7.5 : 5.5), 
@@ -474,21 +533,27 @@
 
             takeDamage(amount, attacker) {
                 if (!attacker) return;
-                let isExecuted = false;
 
-                // 刺客系斬殺判定
+                // 【機制實裝】量子身法閃避判定
+                if (Math.random() < (CONFIG[this.type].dodge || 0)) {
+                    floatingTexts.push({ x: this.x, y: this.y - this.radius - 20, text: "⚡ 閃避!", life: 30, maxLife: 30, color: '#ffcc00' });
+                    // 強化閃避虛影粒子
+                    for (let i = 0; i < 6; i++) {
+                        particles.push({ x: this.x, y: this.y, vx: (Math.random()-0.5)*6, vy: (Math.random()-0.5)*6, life: 15, color: 'rgba(255, 255, 255, 0.6)', type: 'spark' });
+                    }
+                    return; 
+                }
+
+                let isExecuted = false;
                 if (attacker.type === 'assassin' && (this.hp / this.maxHp) <= 0.35) {
                     amount *= 1.6; isExecuted = true;
                 } else if (attacker.type === 'shadowBlade' && (this.hp / this.maxHp) <= 0.40) {
                     amount *= 2.2; isExecuted = true;
                 }
 
-                // 聖騎士防禦減傷被動
                 if (this.type === 'paladin') amount *= 0.8;
 
                 let finalDamage = amount;
-                
-                // 能量護盾抵扣
                 if (this.shield > 0) {
                     if (this.shield >= amount) {
                         this.shield -= amount; finalDamage = 0;
@@ -499,7 +564,6 @@
 
                 this.hp -= finalDamage;
 
-                // 刺客系吸血反哺機制
                 if (finalDamage > 0) {
                     if (attacker.type === 'assassin') {
                         attacker.hp = Math.min(attacker.maxHp, attacker.hp + finalDamage * 0.35);
@@ -519,29 +583,28 @@
                     color: isExecuted ? '#e066ff' : (finalDamage === 0 ? '#00ffff' : '#ff4d4d')
                 });
 
-                particles.push({ x: this.x, y: this.y, vx: (Math.random() - 0.5) * 5, vy: (Math.random() - 0.5) * 5, life: 10, color: this.color, type: 'spark' });
+                // 強化受擊火花爆破特效
+                let sparkCount = finalDamage > 0 ? 10 : 3;
+                for(let i=0; i<sparkCount; i++) {
+                    particles.push({ x: this.x, y: this.y, vx: (Math.random() - 0.5) * 8, vy: (Math.random() - 0.5) * 8, life: 12, color: isExecuted?'#e066ff':this.color, type: 'spark' });
+                }
             }
 
             draw() {
-                // 隊伍陣營光環
                 ctx.beginPath(); ctx.arc(this.x, this.y, this.radius + 3, 0, Math.PI * 2);
                 ctx.strokeStyle = TEAM_COLORS[this.team]; ctx.lineWidth = 2; ctx.stroke();
 
-                // 護盾外環視覺
                 if (this.shield > 0) {
                     ctx.beginPath(); ctx.arc(this.x, this.y, this.radius + 6, 0, Math.PI * 2);
-                    ctx.strokeStyle = 'rgba(0, 255, 255, 0.7)'; ctx.lineWidth = 1.5; ctx.stroke();
+                    ctx.strokeStyle = 'rgba(0, 255, 255, 0.8)'; ctx.lineWidth = 1.5; ctx.stroke();
                 }
 
-                // 核心本體
                 ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = this.color; ctx.shadowBlur = 8; ctx.shadowColor = this.color; ctx.fill(); ctx.shadowBlur = 0;
+                ctx.fillStyle = this.color; ctx.shadowBlur = 10; ctx.shadowColor = this.color; ctx.fill(); ctx.shadowBlur = 0;
 
-                // 血條背景與動態實體
                 ctx.fillStyle = '#444'; ctx.fillRect(this.x - 18, this.y - this.radius - 10, 36, 5);
                 ctx.fillStyle = '#00ff00'; let hpPercent = Math.max(0, this.hp / this.maxHp); ctx.fillRect(this.x - 18, this.y - this.radius - 10, 36 * hpPercent, 5);
 
-                // 生命值文字
                 ctx.fillStyle = '#ffffff'; ctx.font = 'bold 9px sans-serif'; ctx.textAlign = 'center';
                 let txt = `${Math.max(0, Math.ceil(this.hp))}/${this.maxHp}`;
                 if (this.shield > 0) txt = `[${Math.ceil(this.shield)}] ` + txt;
@@ -552,10 +615,36 @@
             }
         }
 
-        // --- 核心演算法：升級為動態圓周等距分配對稱陣型，完美匹配 2-5 個隊伍 ---
+        // 實體與障礙牆碰撞推擠自律算式
+        function resolveObstacleCollision(ent) {
+            for (let obs of obstacles) {
+                let buffer = ent.radius;
+                if (ent.x + buffer > obs.x && ent.x - buffer < obs.x + obs.w &&
+                    ent.y + buffer > obs.y && ent.y - buffer < obs.y + obs.h) {
+                    let overlapL = (ent.x + buffer) - obs.x;
+                    let overlapR = (obs.x + obs.w) - (ent.x - buffer);
+                    let overlapT = (ent.y + buffer) - obs.y;
+                    let overlapB = (obs.y + obs.h) - (ent.y - buffer);
+                    let minOverlap = Math.min(overlapL, overlapR, overlapT, overlapB);
+                    if (minOverlap === overlapL) ent.x -= overlapL;
+                    else if (minOverlap === overlapR) ent.x += overlapR;
+                    else if (minOverlap === overlapT) ent.y -= overlapT;
+                    else if (minOverlap === overlapB) ent.y += overlapB;
+                }
+            }
+        }
+
         function setupGame() {
-            entities = []; projectiles = []; particles = []; floatingTexts = []; victoryTriggered = false;
+            entities = []; projectiles = []; particles = []; floatingTexts = []; 
+            bases = []; beacons = []; obstacles = []; victoryTriggered = false;
             
+            // 讀取自定義地圖規格
+            let finalW = parseInt(document.getElementById('mapWidth').value) || 850;
+            let finalH = parseInt(document.getElementById('mapHeight').value) || 500;
+            canvas.width = finalW; canvas.height = finalH;
+
+            growthMode = document.getElementById('growthModeToggle').checked;
+
             Object.keys(initialMaxHpStats).forEach(k => initialMaxHpStats[k] = 0);
 
             let teamGroups = { A: [], B: [], C: [], D: [], E: [] };
@@ -572,17 +661,60 @@
 
             let activeTeams = Object.keys(teamGroups).filter(t => teamGroups[t].length > 0);
 
-            if (activeTeams.length <= 1) {
+            if (activeTeams.length <= 1 && !(growthMode && activeTeams.length === 1)) {
                 statusDisplay.innerText = "請至少分配兩個以上的敵對隊伍以展開激戰！"; gameActive = false; return;
             }
 
             let len = activeTeams.length;
             let centerX = canvas.width / 2;
             let centerY = canvas.height / 2;
-            let spawnRadius = Math.min(canvas.width, canvas.height) * 0.35; // 離中心圓周距離
+            let spawnRadius = Math.min(canvas.width, canvas.height) * 0.35;
 
+            // 如果開啟成長防衛模式，生成建築物
+            if (growthMode) {
+                // 1. 生成大本營
+                activeTeams.forEach((teamName, index) => {
+                    let baseAngle = (index * 2 * Math.PI) / len - Math.PI / 2;
+                    let bX = centerX + Math.cos(baseAngle) * spawnRadius;
+                    let bY = centerY + Math.sin(baseAngle) * spawnRadius;
+                    
+                    bases.push({
+                        x: bX, y: bY, team: teamName, hp: 2000, maxHp: 2000, radius: 32, isBase: true,
+                        takeDamage: function(amount, attacker) {
+                            this.hp -= amount;
+                            if (this.hp <= 0) {
+                                this.hp = 0;
+                                floatingTexts.push({ x: this.x, y: this.y, text: `💥 陣營【${this.team}】大本營淪陷摧毀!`, life: 55, maxLife: 55, color: '#ff1133' });
+                            }
+                        }
+                    });
+                });
+
+                // 2. 生成中立佔領信標
+                let bcCount = Math.min(4, Math.max(2, len));
+                for(let i = 0; i < bcCount; i++) {
+                    let a = (i * 2 * Math.PI) / bcCount;
+                    beacons.push({
+                        x: centerX + Math.cos(a) * (spawnRadius * 0.45),
+                        y: centerY + Math.sin(a) * (spawnRadius * 0.45),
+                        radius: 22, controllingTeam: null, progress: {}
+                    });
+                }
+
+                // 3. 生成隨機矩形障礙物
+                let obsCount = 4 + Math.floor(Math.random() * 3);
+                for(let i=0; i < obsCount; i++) {
+                    obstacles.push({
+                        x: centerX + (Math.random() - 0.5) * (finalW * 0.6) - 30,
+                        y: centerY + (Math.random() - 0.5) * (finalH * 0.6) - 30,
+                        w: Math.random() * 50 + 40,
+                        h: Math.random() * 50 + 40
+                    });
+                }
+            }
+
+            // 生成隊員實體
             activeTeams.forEach((teamName, index) => {
-                // 利用圓周角將各大隊伍均勻且完全對稱地分佈於戰場周圍
                 let baseAngle = (index * 2 * Math.PI) / len - Math.PI / 2;
                 let teamCenterX = centerX + Math.cos(baseAngle) * spawnRadius;
                 let teamCenterY = centerY + Math.sin(baseAngle) * spawnRadius;
@@ -590,74 +722,195 @@
                 teamGroups[teamName].forEach(type => {
                     let r = Math.random() * 45; 
                     let a = Math.random() * 2 * Math.PI;
-                    let x = teamCenterX + Math.cos(a) * r;
-                    let y = teamCenterY + Math.sin(a) * r;
-                    entities.push(new Entity(x, y, type, teamName));
+                    entities.push(new Entity(teamCenterX + Math.cos(a) * r, teamCenterY + Math.sin(a) * r, type, teamName));
                 });
             });
 
-            initDelayTimer = 15; gameActive = true; statusDisplay.innerText = "多方同盟擺開對稱矩陣，大決戰打響！";
+            initDelayTimer = 15; gameActive = true; 
+            statusDisplay.innerText = growthMode ? "🏰 基地攻防戰拉開帷幕！佔領信標，摧毀敵方大本營！" : "多方同盟擺開對稱矩陣，大決戰打響！";
         }
 
-        function gameLoop() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // 1. 處理蛐蛐實體
+        function advancePhysicsStep() {
+            // 處理蛐蛐
             for (let i = entities.length - 1; i >= 0; i--) {
                 let ent = entities[i];
-                if (gameActive) ent.update();
+                ent.update();
+                resolveObstacleCollision(ent);
                 if (ent.hp <= 0) { entities.splice(i, 1); continue; }
-                ent.draw();
             }
 
-            // 2. 處理各式彈道飛行物 (包含追蹤法術、常規箭、穿透弩箭)
-            for (let i = projectiles.length - 1; i >= 0; i--) {
-                let p = projectiles[i];
-                if (gameActive) {
-                    if (p.type === 'magic') {
-                        // 追蹤法術導航
-                        if (entities.includes(p.target)) {
-                            let angle = Math.atan2(p.target.y - p.y, p.target.x - p.x);
-                            p.vx = p.vx * 0.85 + Math.cos(angle) * 5.5 * 0.15; p.vy = p.vy * 0.85 + Math.sin(angle) * 5.5 * 0.15;
-                        }
-                        p.x += p.vx; p.y += p.vy;
-
-                        if (entities.includes(p.target) && Math.hypot(p.target.x - p.x, p.target.y - p.y) <= p.target.radius + p.radius) {
-                            p.target.takeDamage(p.damage, p.attacker); projectiles.splice(i, 1); continue;
-                        }
-                    } else if (p.type === 'arrow') {
-                        // 獵人常規速射物理箭
-                        p.x += p.vx; p.y += p.vy;
-                        let hit = false;
-                        for (let ent of entities) {
-                            if (ent.team === p.attacker.team) continue;
-                            if (Math.hypot(ent.x - p.x, ent.y - p.y) <= ent.radius + p.radius) {
-                                ent.takeDamage(p.damage, p.attacker); hit = true; break;
-                            }
-                        }
-                        if (hit) { projectiles.splice(i, 1); continue; }
-                    } else if (p.type === 'piercing') {
-                        // 神射手直線大穿透強弩
-                        p.x += p.vx; p.y += p.vy;
-                        for (let ent of entities) {
-                            if (ent.team === p.attacker.team) continue;
-                            if (!p.hitList.includes(ent) && Math.hypot(ent.x - p.x, ent.y - p.y) <= ent.radius + p.radius) {
-                                ent.takeDamage(p.damage, p.attacker); p.hitList.push(ent); 
+            // 成長防衛模式大本營與信標邏輯
+            if (growthMode) {
+                // 大本營範圍治療與防禦增強
+                for (let b of bases) {
+                    if (b.hp <= 0) continue;
+                    for (let ent of entities) {
+                        if (ent.team === b.team) {
+                            if (Math.hypot(ent.x - b.x, ent.y - b.y) <= 130) { // 基地光環範圍
+                                ent.hp = Math.min(ent.maxHp, ent.hp + 0.18); // 持續回血
+                                if (Math.random() < 0.015) {
+                                    particles.push({ x: ent.x, y: ent.y, vx: 0, vy: -0.6, life: 10, color: '#00ff66', type: 'spark' });
+                                }
                             }
                         }
                     }
                 }
 
-                // 繪製飛行物
-                ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = p.color; ctx.shadowBlur = 6; ctx.shadowColor = p.color; ctx.fill(); ctx.shadowBlur = 0;
+                // 信標佔領進度演算
+                for (let bc of beacons) {
+                    let counts = { A: 0, B: 0, C: 0, D: 0, E: 0 };
+                    for (let ent of entities) {
+                        if (Math.hypot(ent.x - bc.x, ent.y - bc.y) <= bc.radius + 5) counts[ent.team]++;
+                    }
+                    let activeInBc = Object.keys(counts).filter(t => counts[t] > 0);
+                    if (activeInBc.length === 1) {
+                        let t = activeInBc[0];
+                        if (bc.controllingTeam !== t) {
+                            bc.progress[t] = (bc.progress[t] || 0) + 0.5;
+                            if (bc.progress[t] >= 100) {
+                                bc.controllingTeam = t;
+                                floatingTexts.push({ x: bc.x, y: bc.y - 25, text: `🚩 信標被隊伍 ${t} 佔領!`, life: 40, maxLife: 40, color: TEAM_COLORS[t] });
+                            }
+                        }
+                    }
+
+                    // 佔領信標帶來的能量能盾反哺
+                    if (bc.controllingTeam) {
+                        for (let ent of entities) {
+                            if (ent.team === bc.controllingTeam && Math.random() < 0.004) {
+                                ent.shield = Math.min(ent.maxShield + 30, ent.shield + 3);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 處理各式彈道飛行物
+            for (let i = projectiles.length - 1; i >= 0; i--) {
+                let p = projectiles[i];
+                let exploded = false;
+
+                // 飛行物撞擊障礙牆判定
+                for (let obs of obstacles) {
+                    if (p.x >= obs.x && p.x <= obs.x + obs.w && p.y >= obs.y && p.y <= obs.y + obs.h) {
+                        projectiles.splice(i, 1); exploded = true; break;
+                    }
+                }
+                if (exploded) continue;
+
+                if (p.type === 'magic') {
+                    if (p.target && (entities.includes(p.target) || (p.target.isBase && p.target.hp > 0))) {
+                        let angle = Math.atan2(p.target.y - p.y, p.target.x - p.x);
+                        p.vx = p.vx * 0.85 + Math.cos(angle) * 5.5 * 0.15; p.vy = p.vy * 0.85 + Math.sin(angle) * 5.5 * 0.15;
+                    }
+                    p.x += p.vx; p.y += p.vy;
+
+                    // 飛行法術爆破粒子效果
+                    if (Math.random() < 0.2) particles.push({ x: p.x, y: p.y, life: 6, color: p.color, type: 'trail' });
+
+                    if (p.target && Math.hypot(p.target.x - p.x, p.target.y - p.y) <= (p.target.radius || 10) + p.radius) {
+                        p.target.takeDamage(p.damage, p.attacker); projectiles.splice(i, 1); continue;
+                    }
+                } else if (p.type === 'arrow') {
+                    p.x += p.vx; p.y += p.vy;
+                    if (Math.random() < 0.2) particles.push({ x: p.x, y: p.y, life: 5, color: p.color, type: 'trail' });
+
+                    for (let ent of entities) {
+                        if (ent.team === p.attacker.team) continue;
+                        if (Math.hypot(ent.x - p.x, ent.y - p.y) <= ent.radius + p.radius) {
+                            ent.takeDamage(p.damage, p.attacker); exploded = true; break;
+                        }
+                    }
+                    if (!exploded && growthMode) {
+                        for (let b of bases) {
+                            if (b.team !== p.attacker.team && b.hp > 0 && Math.hypot(b.x - p.x, b.y - p.y) <= b.radius) {
+                                b.takeDamage(p.damage, p.attacker); exploded = true; break;
+                            }
+                        }
+                    }
+                    if (exploded) { projectiles.splice(i, 1); continue; }
+                } else if (p.type === 'piercing') {
+                    p.x += p.vx; p.y += p.vy;
+                    for (let ent of entities) {
+                        if (ent.team === p.attacker.team) continue;
+                        if (!p.hitList.includes(ent) && Math.hypot(ent.x - p.x, ent.y - p.y) <= ent.radius + p.radius) {
+                            ent.takeDamage(p.damage, p.attacker); p.hitList.push(ent); 
+                        }
+                    }
+                    if (growthMode) {
+                        for (let b of bases) {
+                            if (b.team !== p.attacker.team && b.hp > 0 && !p.hitList.includes(b) && Math.hypot(b.x - p.x, b.y - p.y) <= b.radius) {
+                                b.takeDamage(p.damage, p.attacker); p.hitList.push(b);
+                            }
+                        }
+                    }
+                }
 
                 if (p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
                     projectiles.splice(i, 1);
                 }
             }
+        }
 
-            // 3. 特效粒子與勝利煙火
+        function gameLoop() {
+            // 依據拉桿流速實施多重物理步進循環
+            if (gameActive) {
+                let speedMult = parseInt(document.getElementById('gameSpeed').value) || 1;
+                for (let k = 0; k < speedMult; k++) {
+                    if (!gameActive) break;
+                    advancePhysicsStep();
+                }
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 1. 繪製戰場障礙物
+            for (let obs of obstacles) {
+                ctx.fillStyle = '#30303d'; ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
+                ctx.strokeStyle = '#4a4a5a'; ctx.lineWidth = 2; ctx.strokeRect(obs.x, obs.y, obs.w, obs.h);
+            }
+
+            // 2. 繪製戰略信標
+            for (let bc of beacons) {
+                ctx.beginPath(); ctx.arc(bc.x, bc.y, bc.radius, 0, Math.PI * 2);
+                ctx.strokeStyle = bc.controllingTeam ? TEAM_COLORS[bc.controllingTeam] : '#666';
+                ctx.lineWidth = 3; ctx.stroke();
+                ctx.fillStyle = bc.controllingTeam ? `${TEAM_COLORS[bc.controllingTeam]}22` : 'rgba(255,255,255,0.03)'; ctx.fill();
+                
+                ctx.beginPath(); ctx.arc(bc.x, bc.y, 5, 0, Math.PI * 2);
+                ctx.fillStyle = bc.controllingTeam ? TEAM_COLORS[bc.controllingTeam] : '#555'; ctx.fill();
+            }
+
+            // 3. 繪製陣營大本營
+            for (let b of bases) {
+                if (b.hp <= 0) continue;
+                // 守護光環波紋
+                ctx.beginPath(); ctx.arc(b.x, b.y, 130, 0, Math.PI * 2);
+                ctx.strokeStyle = `${TEAM_COLORS[b.team]}11`; ctx.lineWidth = 1; ctx.stroke();
+
+                // 核心要塞本體
+                ctx.beginPath(); ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#15151f'; ctx.strokeStyle = TEAM_COLORS[b.team]; ctx.lineWidth = 4;
+                ctx.fill(); ctx.stroke();
+
+                // 堡壘血條
+                ctx.fillStyle = '#333'; ctx.fillRect(b.x - 25, b.y - b.radius - 12, 50, 5);
+                ctx.fillStyle = '#00ffcc'; ctx.fillRect(b.x - 25, b.y - b.radius - 12, 50 * (b.hp / b.maxHp), 5);
+
+                ctx.fillStyle = '#ffffff'; ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center';
+                ctx.fillText(`🏯 ${b.team}堡壘`, b.x, b.y + 3);
+            }
+
+            // 4. 繪製所有存活蛐蛐
+            for (let ent of entities) ent.draw();
+
+            // 5. 繪製飛行物
+            for (let p of projectiles) {
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color; ctx.shadowBlur = 6; ctx.shadowColor = p.color; ctx.fill(); ctx.shadowBlur = 0;
+            }
+
+            // 6. 處理粒子特效
             if (victoryTriggered) {
                 for (let k = 0; k < 3; k++) {
                     particles.push({ x: Math.random() * canvas.width, y: Math.random() * (canvas.height * 0.7), vx: (Math.random() - 0.5) * 6, vy: (Math.random() - 0.5) * 6, life: 45, color: `hsl(${Math.random() * 360}, 100%, 60%)`, type: 'victorySpark' });
@@ -672,22 +925,20 @@
                     if (pt.r >= pt.maxR) particles.splice(i, 1);
                 } else if (pt.type === 'victorySpark') {
                     pt.x += pt.vx; pt.y += pt.vy; pt.vy += 0.06; pt.life--;
-                    ctx.beginPath(); ctx.arc(pt.x, pt.y, 3, 0, Math.PI * 2); ctx.fillStyle = pt.color; ctx.shadowBlur = 10; ctx.shadowColor = pt.color; ctx.fill(); ctx.shadowBlur = 0;
+                    ctx.beginPath(); ctx.arc(pt.x, pt.y, 3, 0, Math.PI * 2); ctx.fillStyle = pt.color; ctx.fill();
                     if (pt.life <= 0) particles.splice(i, 1);
                 } else {
                     if (gameActive) { pt.x += pt.vx || 0; pt.y += pt.vy || 0; pt.life--; }
-                    ctx.beginPath(); ctx.arc(pt.x, pt.y, pt.type === 'trail' ? 5 : 2, 0, Math.PI * 2); ctx.fillStyle = pt.color; ctx.fill();
+                    ctx.beginPath(); ctx.arc(pt.x, pt.y, pt.type === 'trail' ? 4 : 2, 0, Math.PI * 2); ctx.fillStyle = pt.color; ctx.fill();
                     if (pt.life <= 0) particles.splice(i, 1);
                 }
             }
 
-            // 4. 戰報數字浮動文字
+            // 7. 戰報數字浮動文字
             for (let i = floatingTexts.length - 1; i >= 0; i--) {
                 let ft = floatingTexts[i]; ft.y -= 0.6; ft.life--;
-                let alpha = ft.life / ft.maxLife;
-                ctx.save();
-                ctx.globalAlpha = alpha;
-                ctx.fillStyle = ft.color || '#ff4d4d'; ctx.font = 'bold 13px sans-serif'; ctx.textAlign = 'center'; ctx.fillText(ft.text, ft.x, ft.y);
+                let alpha = ft.life / ft.maxLife; ctx.save(); ctx.globalAlpha = alpha;
+                ctx.fillStyle = ft.color || '#ff4d4d'; ctx.font = 'bold 12px sans-serif'; ctx.textAlign = 'center'; ctx.fillText(ft.text, ft.x, ft.y);
                 ctx.restore();
                 if (ft.life <= 0) floatingTexts.splice(i, 1);
             }
@@ -699,50 +950,38 @@
             requestAnimationFrame(gameLoop);
         }
 
-        // --- 動態數據看板：同時精準輸出剩餘數量、當前總殘餘血量與開局初始上限值 ---
         function checkWinCondition() {
             let aliveTeams = new Set(entities.map(e => e.team));
             
+            // 【終局勝利判定制式更替】若開啟成長版，大本營存活同樣視為陣營未滅亡
+            if (growthMode) {
+                for (let b of bases) {
+                    if (b.hp > 0) aliveTeams.add(b.team);
+                }
+            }
+
             let stats = {
-                warrior: { name: '戰士', count: 0, currentHp: 0 },
-                paladin: { name: '聖騎士', count: 0, currentHp: 0 },
-                mage: { name: '法師', count: 0, currentHp: 0 },
-                archmage: { name: '大法師', count: 0, currentHp: 0 },
-                assassin: { name: '刺客', count: 0, currentHp: 0 },
-                shadowBlade: { name: '影刃', count: 0, currentHp: 0 },
-                hunter: { name: '獵人', count: 0, currentHp: 0 },
-                sniper: { name: '神射手', count: 0, currentHp: 0 }
+                warrior: { name: '戰士', count: 0, currentHp: 0 }, paladin: { name: '聖騎士', count: 0, currentHp: 0 },
+                mage: { name: '法師', count: 0, currentHp: 0 }, archmage: { name: '大法師', count: 0, currentHp: 0 },
+                assassin: { name: '刺客', count: 0, currentHp: 0 }, shadowBlade: { name: '影刃', count: 0, currentHp: 0 },
+                hunter: { name: '獵人', count: 0, currentHp: 0 }, sniper: { name: '神射手', count: 0, currentHp: 0 }
             };
 
-            entities.forEach(e => {
-                if (stats[e.type]) {
-                    stats[e.type].count++;
-                    stats[e.type].currentHp += Math.max(0, e.hp);
-                }
-            });
+            entities.forEach(e => { if (stats[e.type]) { stats[e.type].count++; stats[e.type].currentHp += Math.max(0, e.hp); } });
 
-            // 生成結構化的實時戰報面板
             let reportHtml = `<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 6px; text-align:left;">`;
             Object.keys(stats).forEach(k => {
-                let s = stats[k];
-                let maxHp = initialMaxHpStats[k];
-                if (maxHp > 0) {
-                    let curHpShow = Math.ceil(s.currentHp);
-                    reportHtml += `<span style="color:${CONFIG[k].color}">${s.name}: ${s.count} 隻 (血量: ${curHpShow}/${maxHp})</span>`;
-                }
+                let s = stats[k]; let maxHp = initialMaxHpStats[k];
+                if (maxHp > 0) reportHtml += `<span style="color:${CONFIG[k].color}">${s.name}: ${s.count} 隻 (血量: ${Math.ceil(s.currentHp)}/${maxHp})</span>`;
             });
             reportHtml += `</div>`;
 
-            if (aliveTeams.size === 1 && entities.length > 0) {
+            if (aliveTeams.size === 1 && (entities.length > 0 || (growthMode && bases.some(b => b.hp > 0)))) {
                 let winningTeam = [...aliveTeams][0];
-                statusDisplay.innerHTML = `${reportHtml}<div style="color:${TEAM_COLORS[winningTeam]}; font-size:20px; margin-top:8px; font-weight:bold;">👑 比賽結束！ 恭喜同盟【隊伍 ${winningTeam}】贏得最終大捷！👑</div>`;
+                statusDisplay.innerHTML = `${reportHtml}<div style="color:${TEAM_COLORS[winningTeam]}; font-size:20px; margin-top:8px; font-weight:bold;">👑 大局已定！恭喜同盟【隊伍 ${winningTeam}】橫掃寰宇，贏得終極大捷！👑</div>`;
                 gameActive = false; victoryTriggered = true;
-
-                for (let m = 0; m < 80; m++) {
-                    particles.push({ x: canvas.width / 2 + (Math.random() - 0.5) * 200, y: canvas.height / 3 + (Math.random() - 0.5) * 100, vx: (Math.random() - 0.5) * 10, vy: (Math.random() - 0.5) * 10, life: 60, color: `hsl(${Math.random() * 360}, 100%, 60%)`, type: 'victorySpark' });
-                }
             } else if (aliveTeams.size === 0) {
-                statusDisplay.innerHTML = `${reportHtml}<div style="color:#aaa; font-size:20px; margin-top:8px; font-weight:bold;">💀 全軍覆沒！戰場上無任何隊伍生還！💀</div>`;
+                statusDisplay.innerHTML = `${reportHtml}<div style="color:#aaa; font-size:20px; margin-top:8px; font-weight:bold;">💀 同歸於盡！戰場上已無任何陣營火種留存！💀</div>`;
                 gameActive = false;
             } else {
                 statusDisplay.innerHTML = reportHtml;
